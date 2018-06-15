@@ -95,7 +95,7 @@ class CreateAllTables extends Migration
             $table->increments('id');
             $table->string('nom');
             $table->string('mot_de_passe');
-            $table->string('courriel')
+            $table->string('courriel', 100)
                 ->unique();
             $table->unsignedInteger('adresse_id');
             $table->foreign('adresse_id')
