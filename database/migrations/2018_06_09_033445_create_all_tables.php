@@ -48,12 +48,15 @@ class CreateAllTables extends Migration
         });            
         Schema::create('redevances', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('token');
             $table->boolean('cliquee');
             $table->boolean('ciblee');
+            $table->dateTime('date');
             $table->decimal('montant', 8, 2);
             $table->unsignedInteger('banniere_id')
                 ->nullable($value = true);
-            $table->unsignedInteger('paiement_redevance_id');
+            $table->unsignedInteger('paiement_redevance_id')
+                ->nullable($value = true);
             $table->unsignedInteger('utilisateur_id');
             $table->foreign('banniere_id')
                 ->references('id')
