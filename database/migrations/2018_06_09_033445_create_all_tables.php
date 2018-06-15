@@ -86,7 +86,7 @@ class CreateAllTables extends Migration
         });
         Schema::create('adresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('no_civique');
+            $table->smallInteger('no_civique');
             $table->string('rue');
             $table->string('ville');
             $table->string('code_postal');
