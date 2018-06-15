@@ -53,15 +53,9 @@ class CreateAllTables extends Migration
             $table->boolean('ciblee');
             $table->dateTime('date');
             $table->decimal('montant', 8, 2);
-            $table->unsignedInteger('banniere_id')
-                ->nullable($value = true);
             $table->unsignedInteger('paiement_redevance_id')
                 ->nullable($value = true);
             $table->unsignedInteger('utilisateur_id');
-            $table->foreign('banniere_id')
-                ->references('id')
-                ->on('bannieres')
-                ->onDelete('set null');
             $table->foreign('paiement_redevance_id')
                 ->references('id')
                 ->on('paiements_redevances');
@@ -153,17 +147,6 @@ class CreateAllTables extends Migration
                 ->references('id')
                 ->on('administrateurs_publicite');
         });
-        Schema::create('campagne_publicitaire_profil_cible', function($table) {
-            $table->increments('id');
-            $table->unsignedInteger('campagne_publicitaire_id');
-            $table->foreign('campagne_publicitaire_id', 'cp_campagne_publicitaire_fk')
-                ->references('id')
-                ->on('campagnes_publicitaires');
-            $table->unsignedInteger('profil_cible_id');
-            $table->foreign('profil_cible_id', 'cp_profil_cible_fk')
-                ->references('id')
-                ->on('profils_cible');
-        });
     }
 
     /**
@@ -177,7 +160,6 @@ class CreateAllTables extends Migration
             $table->dropForeign(['campagne_publicitaire_id']);
         });
         Schema::table('redevances', function (Blueprint $table) {
-            $table->dropForeign(['banniere_id']);
             $table->dropForeign(['paiement_redevance_id']);
             $table->dropForeign(['utilisateur_id']);
         });
@@ -212,10 +194,6 @@ class CreateAllTables extends Migration
             $table->dropForeign(['administrateur_publicite_id']);
 
         });
-        Schema::table('campagne_publicitaire_profil_cible', function (Blueprint $table) {
-            $table->dropForeign('cp_campagne_publicitaire_fk');
-            $table->dropForeign('cp_profil_cible_fk');
-        });
         Schema::dropIfExists('campagnes_publicitaires');
         Schema::dropIfExists('bannieres');
         Schema::dropIfExists('paiements_redevances');
@@ -229,6 +207,5 @@ class CreateAllTables extends Migration
         Schema::dropIfExists('administrateurs_publicite');
         Schema::dropIfExists('profils_cible');
         Schema::dropIfExists('sites_web_profil_cible');
-        Schema::dropIfExists('campagne_publicitaire_profil_cible');
     }
 }
