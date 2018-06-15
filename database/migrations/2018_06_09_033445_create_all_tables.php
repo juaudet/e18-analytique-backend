@@ -130,8 +130,8 @@ class CreateAllTables extends Migration
         Schema::create('profils_cible', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom');
-            $table->unsignedInteger('administrateurs_publicite_id');
-            $table->foreign('administrateurs_publicite_id')
+            $table->unsignedInteger('administrateur_publicite_id');
+            $table->foreign('administrateur_publicite_id')
                 ->references('id')
                 ->on('administrateurs_publicite');
         });
@@ -145,8 +145,8 @@ class CreateAllTables extends Migration
                 ->onDelete('cascade');
         });
         Schema::table('campagnes_publicitaires', function (Blueprint $table) {
-            $table->unsignedInteger('administrateurs_publicite_id');
-            $table->foreign('administrateurs_publicite_id')
+            $table->unsignedInteger('administrateur_publicite_id');
+            $table->foreign('administrateur_publicite_id')
                 ->references('id')
                 ->on('administrateurs_publicite');
         });
@@ -198,7 +198,7 @@ class CreateAllTables extends Migration
 
         });
         Schema::table('profils_cible', function (Blueprint $table) {
-            $table->dropForeign(['administrateurs_publicite_id']);
+            $table->dropForeign(['administrateur_publicite_id']);
 
         });
         Schema::table('sites_web_profil_cible', function (Blueprint $table) {
@@ -206,7 +206,7 @@ class CreateAllTables extends Migration
 
         });
         Schema::table('campagnes_publicitaires', function (Blueprint $table) {
-            $table->dropForeign(['administrateurs_publicite_id']);
+            $table->dropForeign(['administrateur_publicite_id']);
 
         });
         Schema::table('campagne_publicitaire_profil_cible', function (Blueprint $table) {
