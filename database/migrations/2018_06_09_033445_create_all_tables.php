@@ -26,7 +26,7 @@ class CreateAllTables extends Migration
         });            
         Schema::create('bannieres', function (Blueprint $table) {
             $table->increments('id');
-            $table->binary('image');
+            $table->longText('image');
             $table->enum('format', ['horizontal', 'vertical', 'mobile']);
             $table->string('url');
             $table->unsignedInteger('campagne_publicitaire_id');
