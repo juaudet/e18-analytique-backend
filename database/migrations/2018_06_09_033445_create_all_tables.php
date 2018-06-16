@@ -119,8 +119,8 @@ class CreateAllTables extends Migration
                 ->on('administrateurs');
         });
         Schema::table('paiements_redevances', function (Blueprint $table) {
-            $table->unsignedInteger('administrateurs_site_id');
-            $table->foreign('administrateurs_site_id')
+            $table->unsignedInteger('administrateur_site_id');
+            $table->foreign('administrateur_site_id')
                 ->references('id')
                 ->on('administrateurs_site');
         });
@@ -179,7 +179,7 @@ class CreateAllTables extends Migration
             $table->dropForeign(['administrateur_id']);
         });
         Schema::table('paiements_redevances', function (Blueprint $table) {
-            $table->dropForeign(['administrateurs_site_id']);
+            $table->dropForeign(['administrateur_site_id']);
 
         });
         Schema::table('profils_cible', function (Blueprint $table) {
