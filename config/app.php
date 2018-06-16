@@ -211,4 +211,8 @@ return [
 
     ],
 
+    // Set Faker locale to fr_CA
+    // https://stackoverflow.com/a/42594893
+    'faker_locale' => 'fr_CA'
+
 ];
