@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/img', function () {
+	$banniere = App\Banniere::find(1);
+    return '<img src="data:image/jpeg;base64,' . base64_encode(hex2bin(substr($banniere->image, 2))) . '"/>';
+    // return $banniere;
+});
