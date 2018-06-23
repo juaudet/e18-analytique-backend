@@ -25,4 +25,9 @@ class ProfilCible extends Model
         return $this->hasMany('App\SiteWebProfilCible');
     }
 
+    protected $fillable = [
+        'nom', 'administrateur_publicite_id',
+    ];
+
+
 }

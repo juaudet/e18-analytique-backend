@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\ProfilCible;
 use Illuminate\Http\Request;
 
@@ -16,17 +15,6 @@ class ProfilController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return 'Salut';
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -40,54 +28,54 @@ class ProfilController extends Controller
         ]);
 
         $nom = $request->input('nom');
-        $liste_url = $request->input('liste_url');
-
         
+        return ProfilCible::create([
+            'nom' => $nom,
+            'administrateur_publicite_id' => random_int(0, 10), 
+        ]);
         
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ProfilCible  $profilCible
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ProfilCible $profilCible)
+    public function show()
     {
-        //
-    }
+        /*$all_profiles = ProfilCible::where('administrateur_publicite_id', '=', 1);
+        return $all_profiles;*/
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ProfilCible  $profilCible
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProfilCible $profilCible)
-    {
-        //
+        return ProfilCible::where('administrateur_publicite_id', random_int(0,10))->get();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ProfilCible  $profilCible
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProfilCible $profilCible)
+    public function update(Request $request, $id)
     {
-        //
+        
+        
+        $profil = ProfilCible::find($id);
+        $profil->nom = $request->input('nom');
+
+        $profil->save();
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ProfilCible  $profilCible
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProfilCible $profilCible)
+    public function destroy($id)
     {
-        //
+        ProfilCible::destroy($id);
     }
 }

@@ -23,7 +23,9 @@ Route::get('/message', function (Request $request) {
     return json_encode(array("texte" => "Message de l'API back-end"));
 });
 
-Route::get('profil', 'ProfilController@store');
+Route::post('profils', 'ProfilController@store');
+Route::get('profils', 'ProfilController@show');
+Route::put('profils/{id}', 'ProfilController@update');
 
 // http://jwt-auth.readthedocs.io/en/develop/quick-start/#add-some-basic-authentication-routes
 Route::group([
