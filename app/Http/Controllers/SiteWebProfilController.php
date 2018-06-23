@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\ProfilCible;
+
+use App\SiteWebProfilCible;
 use Illuminate\Http\Request;
 
-class ProfilController extends Controller
+class SiteWebProfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +16,7 @@ class ProfilController extends Controller
     {
         //
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -24,16 +26,15 @@ class ProfilController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required|max:255'
+            'url' => 'required|max:2000'
         ]);
 
         $nom = $request->input('nom');
         
-        return ProfilCible::create([
+        return SiteWebProfilCible::create([
             'nom' => $nom,
-            'administrateur_publicite_id' => random_int(0, 10), 
+            'profile_cible_id' => random_int(0, 10), 
         ]);
-        
     }
 
     /**
@@ -44,9 +45,9 @@ class ProfilController extends Controller
      */
     public function show($id)
     {
-
-        return ProfilCible::find($id);
+        return SiteWebProfilCible::find($id);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -58,12 +59,6 @@ class ProfilController extends Controller
     public function update(Request $request, $id)
     {
         
-        
-        $profil = ProfilCible::find($id);
-        $profil->nom = $request->input('nom');
-
-        $profil->save();
-
     }
 
     /**
@@ -74,6 +69,6 @@ class ProfilController extends Controller
      */
     public function destroy($id)
     {
-        ProfilCible::destroy($id);
+        SiteWebProfilCible::destroy($id);
     }
 }
