@@ -39,13 +39,15 @@ class ProfilCible extends Model
      */
     public function scopeProfilsAdministrateurConnecte($query)
     {
-        return $query->where(
+        return $query->with('sitesWebProfilCible')
+            ->where(
             'administrateur_publicite_id', 
             AdministrateurPublicite::where(
                 'administrateur_id', 
                 auth()->user()->id
             )->first()->id
-        )->get();
+            )
+            ->get();
     }
 
 }
