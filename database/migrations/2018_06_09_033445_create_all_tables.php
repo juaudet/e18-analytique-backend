@@ -94,8 +94,7 @@ class CreateAllTables extends Migration
             $table->string('rue');
             $table->string('ville');
             $table->string('code_postal');
-            $table->unsignedInteger('administrateur_id')
-                ->unique();
+            $table->unsignedInteger('administrateur_id');
             $table->foreign('administrateur_id')
                 ->references('id')
                 ->on('administrateurs')
