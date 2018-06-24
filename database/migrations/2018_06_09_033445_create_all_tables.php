@@ -102,7 +102,8 @@ class CreateAllTables extends Migration
         Schema::create('administrateurs_site', function (Blueprint $table) {
             $table->increments('id');
             $table->string('no_compte_bancaire');
-            $table->unsignedInteger('administrateur_id');
+            $table->unsignedInteger('administrateur_id')
+                ->unique();
             $table->foreign('administrateur_id')
                 ->references('id')
                 ->on('administrateurs');
@@ -113,7 +114,8 @@ class CreateAllTables extends Migration
         });
         Schema::create('administrateurs_publicite', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('administrateur_id');
+            $table->unsignedInteger('administrateur_id')
+                ->unique();
             $table->foreign('administrateur_id')
                 ->references('id')
                 ->on('administrateurs');

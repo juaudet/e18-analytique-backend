@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('register', 'RegisterController@create');
-
 Route::group([
     'middleware' => ['auth:api', 'role:publicite']
 ], function ($router) {
@@ -36,3 +34,4 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 });
+
