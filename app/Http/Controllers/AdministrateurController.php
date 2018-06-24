@@ -63,14 +63,14 @@ class AdministrateurController extends Controller
             'code_postal' => $request->input('code_postal')
         ]);
 
-        /*return Administrateur::create([
+        return Administrateur::create([
             'nom' => $request->input('nom'),
             'password' => Hash::make($request->input('password')),
             'email' => $request->input('email'),
             'adresse_id' => $adresse->id,
             'creation' => $date->getTimestamp(),
             'type' => $request->input('type')
-        ]);*/
+        ]);
     }
 
     /**
