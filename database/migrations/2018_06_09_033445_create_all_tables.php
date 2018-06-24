@@ -81,17 +81,6 @@ class CreateAllTables extends Migration
                 ->references('id')
                 ->on('sites_web');
         });
-        Schema::create('adresses', function (Blueprint $table) {
-            $table->increments('id');
-            $table->smallInteger('no_civique');
-            $table->string('rue');
-            $table->string('ville');
-            $table->string('code_postal');
-            $table->foreign('administrateur_id')
-                ->references('id')
-                ->on('administrateurs') 
-                ->onDelete('cascade');
-        });  
         Schema::create('administrateurs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom');
@@ -99,6 +88,19 @@ class CreateAllTables extends Migration
             $table->string('email', 100)
                 ->unique();
         });
+        Schema::create('adresses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->smallInteger('no_civique');
+            $table->string('rue');
+            $table->string('ville');
+            $table->string('code_postal');
+            $table->unsignedInteger('administrateur_id')
+                ->unique();
+            $table->foreign('administrateur_id')
+                ->references('id')
+                ->on('administrateurs')
+                ->onDelete('cascade');
+        });  
         Schema::create('administrateurs_site', function (Blueprint $table) {
             $table->increments('id');
             $table->string('no_compte_bancaire');
