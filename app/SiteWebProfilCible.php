@@ -21,4 +21,6 @@ class SiteWebProfilCible extends Model
      */
     public $timestamps = false;
 
+    protected $hidden = ['profil_cible_id'];
+
 }

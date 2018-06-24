@@ -30,6 +30,8 @@ class ProfilCible extends Model
         'nom', 'administrateur_publicite_id',
     ];
 
+    protected $hidden = ['administrateur_publicite_id'];
+
     /**
      * Scope a query to only include logged-in admin pub profils.
      * ref: https://laravel.com/docs/5.6/eloquent#query-scopes
@@ -41,11 +43,11 @@ class ProfilCible extends Model
     {
         return $query->with('sitesWebProfilCible')
             ->where(
-            'administrateur_publicite_id', 
-            AdministrateurPublicite::where(
-                'administrateur_id', 
-                auth()->user()->id
-            )->first()->id
+                'administrateur_publicite_id', 
+                AdministrateurPublicite::where(
+                    'administrateur_id', 
+                    auth()->user()->id
+                )->first()->id
             )
             ->get();
     }
