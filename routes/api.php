@@ -13,15 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('/message', function (Request $request) {
-	header("Access-Control-Allow-Origin: *");
-	header("Content-Type: application/json;charset=utf-8");
-    return json_encode(array("texte" => "Message de l'API back-end"));
-});
+Route::post('register', 'RegisterController@create');
 
 Route::post('profils', 'ProfilController@store');
 Route::get('profils', 'ProfilController@show');

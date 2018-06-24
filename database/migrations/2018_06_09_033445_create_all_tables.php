@@ -91,8 +91,8 @@ class CreateAllTables extends Migration
         Schema::create('administrateurs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom');
-            $table->string('mot_de_passe');
-            $table->string('courriel', 100)
+            $table->string('password');
+            $table->string('email', 100)
                 ->unique();
             $table->unsignedInteger('adresse_id');
             $table->foreign('adresse_id')
