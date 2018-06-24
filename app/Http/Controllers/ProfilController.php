@@ -13,7 +13,7 @@ class ProfilController extends Controller
      */
     public function index()
     {
-        $profilsCible = ProfilCible::getProfilsAdministrateurConnecte();
+        $profilsCible = ProfilCible::profilsAdministrateurConnecte();
         return $profilsCible;
     }
     /**
