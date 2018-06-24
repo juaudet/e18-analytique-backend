@@ -29,5 +29,9 @@ class ProfilCible extends Model
         'nom', 'administrateur_publicite_id',
     ];
 
+    public static function getProfilAdministrateurConnecte() {
+        return ProfilCible::where('administrateur_publicite_id', auth()->user()->id)->get();
+    }
+
 
 }

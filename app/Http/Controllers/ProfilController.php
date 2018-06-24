@@ -13,7 +13,8 @@ class ProfilController extends Controller
      */
     public function index()
     {
-        //
+        $profilsCible = ProfilCible::getProfilsAdministrateurConnecte();
+        return $profilsCible;
     }
     /**
      * Store a newly created resource in storage.

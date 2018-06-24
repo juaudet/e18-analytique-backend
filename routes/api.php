@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 Route::post('register', 'RegisterController@create');
 
 Route::post('profils', 'ProfilController@store');
-Route::get('profils', 'ProfilController@show');
+Route::get('profils', 'ProfilController@index');
+Route::get('profils/{id}', 'ProfilController@show');
 Route::put('profils/{id}', 'ProfilController@update');
 
 // http://jwt-auth.readthedocs.io/en/develop/quick-start/#add-some-basic-authentication-routes
