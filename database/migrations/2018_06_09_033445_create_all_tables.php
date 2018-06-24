@@ -87,6 +87,10 @@ class CreateAllTables extends Migration
             $table->string('rue');
             $table->string('ville');
             $table->string('code_postal');
+            $table->foreign('administrateur_id')
+                ->references('id')
+                ->on('administrateurs') 
+                ->onDelete('cascade');
         });  
         Schema::create('administrateurs', function (Blueprint $table) {
             $table->increments('id');
@@ -94,10 +98,6 @@ class CreateAllTables extends Migration
             $table->string('password');
             $table->string('email', 100)
                 ->unique();
-            $table->unsignedInteger('adresse_id');
-            $table->foreign('adresse_id')
-                ->references('id')
-                ->on('adresses');
         });
         Schema::create('administrateurs_site', function (Blueprint $table) {
             $table->increments('id');
@@ -106,11 +106,13 @@ class CreateAllTables extends Migration
                 ->unique();
             $table->foreign('administrateur_id')
                 ->references('id')
-                ->on('administrateurs');
+                ->on('administrateurs') 
+                ->onDelete('cascade');
             $table->unsignedInteger('site_web_id');
             $table->foreign('site_web_id')
                 ->references('id')
-                ->on('sites_web');
+                ->on('sites_web')
+                ->onDelete('cascade');
         });
         Schema::create('administrateurs_publicite', function (Blueprint $table) {
             $table->increments('id');
@@ -118,7 +120,8 @@ class CreateAllTables extends Migration
                 ->unique();
             $table->foreign('administrateur_id')
                 ->references('id')
-                ->on('administrateurs');
+                ->on('administrateurs')
+                ->onDelete('cascade');
         });
         Schema::table('paiements_redevances', function (Blueprint $table) {
             $table->unsignedInteger('administrateur_site_id');
@@ -169,9 +172,8 @@ class CreateAllTables extends Migration
             $table->dropForeign(['utilisateur_id']);
             $table->dropForeign(['site_web_id']);
         });
-        Schema::table('administrateurs', function (Blueprint $table) {
-            $table->dropForeign(['adresse_id']);
-
+        Schema::table('adresses', function (Blueprint $table) {
+            $table->dropForeign(['administrateur_id']);
         });
         Schema::table('administrateurs_site', function (Blueprint $table) {
             $table->dropForeign(['administrateur_id']);

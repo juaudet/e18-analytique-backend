@@ -22,7 +22,12 @@ Route::group([
 	Route::put('profils/{id}', 'ProfilController@update');
 });
 
+// Enregistrement
 Route::post('register', 'AdministrateurController@store');
+
+// Administrateur
+Route::delete('administrateurs/{id}', 'AdministrateurController@destroy');
+
 
 // http://jwt-auth.readthedocs.io/en/develop/quick-start/#add-some-basic-authentication-routes
 Route::group([

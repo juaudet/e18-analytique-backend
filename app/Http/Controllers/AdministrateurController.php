@@ -59,14 +59,14 @@ class AdministrateurController extends Controller
     {
         
         $type = $request->input('type');
-        $adresse = $this->createAdresse($request);
+        $administrateur = $this->createAdministrator($request, $type);
+        $adresse = $this->createAdresse($request, $administrateur);
         
         try{
-
-          $administrateur = $this->createAdministrator($request, $type, $adresse);
+            
+            $administrateur = $this->createAdministrator($request, $type);
         }catch(\Exception $e){
 
-            $adresse->delete();
             return "Email déjà utilisé";
         }
          
@@ -76,11 +76,11 @@ class AdministrateurController extends Controller
         }else if($type == 'site'){
 
             $site_web = new SiteWeb();
-            $administrateur_site = $this->createAdministratorSite($request, $administrateur, $site_web);     
+            $administrateur_site = $this->createAdministratorSite($request, $administrateur, 
+            $site_web);     
         }else{
 
             $administrateur->delete();
-            $adresse->delete();
         }
 
         return $administrateur;
@@ -105,26 +105,26 @@ class AdministrateurController extends Controller
         $administrateur_site->site_web_id = $site_web->id;
         $administrateur_site->save();
     }
-    private function createAdministrator(Request $request, String $type, Adresse $adresse){
+    private function createAdministrator(Request $request, String $type){
         
         $administrateur = new Administrateur();
         $administrateur->nom =  $request->input('nom');
         $administrateur->password = Hash::make($request->input('password'));
         $administrateur->email = $request->input('email');
-        $administrateur->adresse_id = $adresse->id;
         $administrateur->role = $type;
         $administrateur->save();
 
         return $administrateur;
     }
 
-    private function createAdresse(Request $request){
+    private function createAdresse(Request $request, Administrateur $administrateur){
         
         $adresse = new Adresse();
         $adresse->no_civique = $request->input('no_civique');
         $adresse->rue =  $request->input('rue');
         $adresse->ville = $request->input('ville');
         $adresse->code_postal = $request->input('code_postal');
+        $adresse->administrateur_id = $administrateur->id;
         $adresse->save();
 
         return $adresse;
@@ -177,6 +177,8 @@ class AdministrateurController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        Administrateur::destroy($id);
+        
     }
 }
