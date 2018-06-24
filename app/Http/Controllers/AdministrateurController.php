@@ -55,22 +55,35 @@ class AdministrateurController extends Controller
     {
         
         $date = new DateTime(); 
+        $type = $request->input('type');
 
-       $adresse = Adresse::create([
+        $adresse = Adresse::create([
             'no_civique' => $request->input('no_civique'),
             'rue' => $request->input('rue'),
             'ville' => $request->input('ville'),
-            'code_postal' => $request->input('code_postal')
+            'code_postal' => $request->input('code_postal'),
         ]);
 
-        return Administrateur::create([
+        $administrateur = Administrateur::create([
             'nom' => $request->input('nom'),
             'password' => Hash::make($request->input('password')),
             'email' => $request->input('email'),
             'adresse_id' => $adresse->id,
-            'creation' => $date->getTimestamp(),
-            'type' => $request->input('type')
         ]);
+
+        if($type == 'publicite'){
+
+            AdministrateurPublicite::create([
+                'administrateur_id' => $administrateur->id,
+            ]);
+
+        }else if($type == 'site'){
+
+            AdministrateurSite::create([
+                'administrateur_id' => $administrateur->id,
+                'no_compte_bancaire' => $request->input('no_compte_bancaire'),
+            ]);
+        }
     }
 
     /**

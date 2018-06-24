@@ -30,10 +30,11 @@ class SiteWebProfilController extends Controller
         ]);
 
         $nom = $request->input('nom');
+        $id = $request->input('profil_cible_id');
         
         return SiteWebProfilCible::create([
             'nom' => $nom,
-            'profile_cible_id' => random_int(0, 10), 
+            'profile_cible_id' => $id, 
         ]);
     }
 
