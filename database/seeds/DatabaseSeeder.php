@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdministrateursPubliciteTableSeeder::class,
             AdministrateursSiteTableSeeder::class,
+            AdressesTableSeeder::class,
             UtilisateursTableSeeder::class,
             PagesWebTableSeeder::class,
            // CampagnesPublicitairesTableSeeder::class,

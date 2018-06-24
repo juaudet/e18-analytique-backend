@@ -29,10 +29,11 @@ class ProfilController extends Controller
         ]);
 
         $nom = $request->input('nom');
+        $id_admin = $request->input('administrateur_publicite_id');
         
         return ProfilCible::create([
             'nom' => $nom,
-            'administrateur_publicite_id' => random_int(0, 10), 
+            'administrateur_publicite_id' => $id_admin, 
         ]);
         
     }

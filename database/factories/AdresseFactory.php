@@ -7,6 +7,8 @@ $factory->define(App\Adresse::class, function (Faker $faker) {
         'no_civique' => $faker->numberBetween(100, 9999),
         'rue' => $faker->streetName,
         'ville' => $faker->city,
-        'code_postal' => $faker->regexify('[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]\d[ABCEGHJKLMNPRSTVWXYZ]\d')
+        'code_postal' => $faker->regexify('[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWX
+        YZ]\d[ABCEGHJKLMNPRSTVWXYZ]\d'),
+        'administrateur_id' => App\Administrateur::inRandomOrder()->first()
     ];
 });

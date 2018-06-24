@@ -26,14 +26,15 @@ class SiteWebProfilController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'url' => 'required|max:2000'
+            'url' => 'required|max:2000|url'
         ]);
 
         $nom = $request->input('nom');
+        $id = $request->input('profil_cible_id');
         
         return SiteWebProfilCible::create([
             'nom' => $nom,
-            'profile_cible_id' => random_int(0, 10), 
+            'profile_cible_id' => $id, 
         ]);
     }
 

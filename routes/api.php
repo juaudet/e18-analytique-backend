@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('register', 'RegisterController@create');
-
 Route::group([
     'middleware' => ['auth:api', 'role:publicite']
 ], function ($router) {
@@ -23,6 +21,13 @@ Route::group([
 	Route::get('profils/{id}', 'ProfilController@show');
 	Route::put('profils/{id}', 'ProfilController@update');
 });
+
+// Enregistrement
+Route::post('register', 'AdministrateurController@store');
+
+// Administrateur
+Route::delete('administrateurs/{id}', 'AdministrateurController@destroy');
+
 
 // http://jwt-auth.readthedocs.io/en/develop/quick-start/#add-some-basic-authentication-routes
 Route::group([
@@ -34,3 +39,4 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 });
+
