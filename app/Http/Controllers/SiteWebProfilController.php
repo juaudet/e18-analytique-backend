@@ -26,7 +26,7 @@ class SiteWebProfilController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'url' => 'required|max:2000'
+            'url' => 'required|max:2000|url'
         ]);
 
         $nom = $request->input('nom');
