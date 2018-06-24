@@ -59,9 +59,7 @@ class AdministrateurController extends Controller
     {
         
         $type = $request->input('type');
-        $administrateur = $this->createAdministrator($request, $type);
-        $adresse = $this->createAdresse($request, $administrateur);
-        
+
         try{
             
             $administrateur = $this->createAdministrator($request, $type);
@@ -69,7 +67,9 @@ class AdministrateurController extends Controller
 
             return "Email déjà utilisé";
         }
-         
+
+        $adresse = $this->createAdresse($request, $administrateur);
+        
         if($type == 'publicite'){
            
             $administrateur_pub = $this->createAdministratorPublicity($request, $administrateur);
