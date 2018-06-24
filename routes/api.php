@@ -15,10 +15,14 @@ use Illuminate\Http\Request;
 
 Route::post('register', 'RegisterController@create');
 
-Route::post('profils', 'ProfilController@store');
-Route::get('profils', 'ProfilController@index');
-Route::get('profils/{id}', 'ProfilController@show');
-Route::put('profils/{id}', 'ProfilController@update');
+Route::group([
+    'middleware' => ['auth:api', 'role:publicite']
+], function ($router) {
+	Route::post('profils', 'ProfilController@store');
+	Route::get('profils', 'ProfilController@index');
+	Route::get('profils/{id}', 'ProfilController@show');
+	Route::put('profils/{id}', 'ProfilController@update');
+});
 
 // http://jwt-auth.readthedocs.io/en/develop/quick-start/#add-some-basic-authentication-routes
 Route::group([
