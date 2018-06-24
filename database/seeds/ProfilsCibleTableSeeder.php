@@ -11,6 +11,6 @@ class ProfilsCibleTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\ProfilCible::class, 10)->create();
     }
 }

@@ -40,12 +40,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        // try {
-            return response()->json(auth()->user());
-        // }
-        // catch (\Illuminate\Database\QueryException $exception) {
-        //     return response('An error occured.', 500);
-        // }
+        return response()->json(auth()->user());
     }
 
     /**

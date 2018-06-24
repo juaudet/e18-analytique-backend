@@ -11,6 +11,6 @@ class SitesWebProfilCibleTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }
