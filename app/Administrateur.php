@@ -40,4 +40,14 @@ class Administrateur extends Authenticatable implements JWTSubject
      */
     public $timestamps = false;
 
+    /**
+     * Indicates if the admin has a role.
+     *
+     * @var string $role the role name
+     * @return bool
+     */
+    public function hasRole($role) {
+        return $this->role == $role;
+    }
+
 }
