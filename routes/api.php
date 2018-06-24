@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::post('register', 'RegisterController@create');
+
 // http://jwt-auth.readthedocs.io/en/develop/quick-start/#add-some-basic-authentication-routes
 Route::group([
     'middleware' => 'api',
