@@ -40,6 +40,8 @@ class Administrateur extends Authenticatable implements JWTSubject
      */
     public $timestamps = false;
 
+    protected $hidden = ['password', 'adresse_id'];
+
     /**
      * Indicates if the admin has a role.
      *
