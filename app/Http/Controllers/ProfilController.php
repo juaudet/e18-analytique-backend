@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\ProfilCible;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilController extends Controller
 {
@@ -29,11 +30,11 @@ class ProfilController extends Controller
         ]);
 
         $nom = $request->input('nom');
-        $id_admin = $request->input('administrateur_publicite_id');
-        
+        $id_admin = auth()->user()->id;
+           
         return ProfilCible::create([
             'nom' => $nom,
-            'administrateur_publicite_id' => $id_admin, 
+            'administrateur_publicite_id' => $id_admin,
         ]);
         
     }
