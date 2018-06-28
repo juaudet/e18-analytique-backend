@@ -30,7 +30,7 @@ class ProfilController extends Controller
         ]);
 
         $nom = $request->input('nom');
-        $id_admin = auth()->user()->id;
+        $id_admin = auth()->user()->getSpecificAdminId();
            
         return ProfilCible::create([
             'nom' => $nom,

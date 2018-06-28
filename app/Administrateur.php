@@ -5,6 +5,7 @@ namespace App;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 // http://jwt-auth.readthedocs.io/en/develop/quick-start/#update-your-user-model
 class Administrateur extends Authenticatable implements JWTSubject
@@ -50,6 +51,22 @@ class Administrateur extends Authenticatable implements JWTSubject
      */
     public function hasRole($role) {
         return $this->role == $role;
+    }
+
+    public function getSpecificAdminId() {
+        if(auth()->user()->role == 'site') {
+            $adminId = AdministrateurSite::where(
+                'administrateur_id', 
+                auth()->user()->id
+            )->first()->id;
+        }
+        else {
+            $adminId = AdministrateurPublicite::where(
+                'administrateur_id', 
+                auth()->user()->id
+            )->first()->id;
+        }
+        return $adminId;
     }
 
 }
