@@ -28,7 +28,7 @@ class ProfilController extends Controller
         $request->validate([
             'nom' => 'required|max:255',
             'sites_web_profil_cible' => 'required|array',
-            'sites_web_profil_cible.*.url' => 'required|max:2000|url',
+            'sites_web_profil_cible.*.url' => 'required|max:2000|regex:/^(https?:\/\/)?([a-z0-9]*\.)?[a-z0-9]+\.[a-z0-9]+$/i',
         ]);
 
         $profilCible = ProfilCible::creerProfilCible($request->all());
