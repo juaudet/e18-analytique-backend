@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+
+use App\SiteWebProfilCible;
 
 class ProfilCible extends Model
 {
@@ -53,6 +56,34 @@ class ProfilCible extends Model
                 ['id', '=', $id]
             ])
             ->first();
+    }
+
+    public static function creerProfilCible($data)
+    {
+        return DB::transaction(function () use ($data) {
+            try {
+                $nom = $data['nom'];
+                $id_admin = auth()->user()->getSpecificAdminId();
+
+                $profilCible = ProfilCible::create([
+                    'nom' => $nom,
+                    'administrateur_publicite_id' => $id_admin,
+                ]);
+
+                $sitesWeb = [];
+                foreach($data['sites_web_profil_cible'] as $siteWeb) {
+                    $sitesWeb[] = new SiteWebProfilCible(['url' => $siteWeb['url']]);
+                }
+                $profilCible->sitesWebProfilCible()->saveMany($sitesWeb);
+
+                $profilCible->load('sitesWebProfilCible');
+
+                return $profilCible;
+            }
+            catch (\Illuminate\Database\QueryException $exception) {
+                return false;
+            }
+        });
     }
 
 }

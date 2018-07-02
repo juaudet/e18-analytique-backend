@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\ProfilCible;
-use App\SiteWebProfilCible;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ProfilController extends Controller
 {
@@ -33,30 +31,7 @@ class ProfilController extends Controller
             'sites_web_profil_cible.*.url' => 'required|max:2000|url',
         ]);
 
-        $profilCible = DB::transaction(function () use ($request) {
-            try {
-                $nom = $request->input('nom');
-                $id_admin = auth()->user()->getSpecificAdminId();
-
-                $profilCible = ProfilCible::create([
-                    'nom' => $nom,
-                    'administrateur_publicite_id' => $id_admin,
-                ]);
-
-                $sitesWeb = [];
-                foreach($request->input('sites_web_profil_cible') as $siteWeb) {
-                    $sitesWeb[] = new SiteWebProfilCible(['url' => $siteWeb['url']]);
-                }
-                $profilCible->sitesWebProfilCible()->saveMany($sitesWeb);
-
-                $profilCible->load('sitesWebProfilCible');
-
-                return $profilCible;
-            }
-            catch (\Illuminate\Database\QueryException $exception) {
-                return false;
-            }
-        });
+        $profilCible = ProfilCible::creerProfilCible($request->all());
 
         if($profilCible) {
             return response()->json([
