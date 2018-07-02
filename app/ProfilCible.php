@@ -45,4 +45,14 @@ class ProfilCible extends Model
             ->get();
     }
 
+    public static function profilParIdAdministrateurConnecte($id)
+    {
+        return ProfilCible::with('sitesWebProfilCible')
+                ->where([
+                ['administrateur_publicite_id', '=', auth()->user()->getSpecificAdminId()],
+                ['id', '=', $id]
+            ])
+            ->first();
+    }
+
 }
