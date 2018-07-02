@@ -86,26 +86,7 @@ class AdministrateurController extends Controller
         return $administrateur;
     }
 
-    
-    private function createAdministratorPublicity(Request $request, Administrateur $administrateur){
-
-        $administrateur_pub = new AdministrateurPublicite();
-        $administrateur_pub->administrateur_id = $administrateur->id;
-        $administrateur_pub->save();
-    }
-
-    private function createAdministratorSite(Request $request, Administrateur $administrateur, SiteWeb $site_web){
-
-        $site_web->url = $request->input('url');
-        $site_web->save();
-
-        $administrateur_site = new AdministrateurSite();
-        $administrateur_site->administrateur_id = $administrateur->id;
-        $administrateur_site->no_compte_bancaire = $request->input('no_compte_bancaire');
-        $administrateur_site->site_web_id = $site_web->id;
-        $administrateur_site->save();
-    }
-    private function createAdministrator(Request $request, String $type){
+     private function createAdministrator(Request $request, String $type){
         
         $administrateur = new Administrateur();
         $administrateur->nom =  $request->input('nom');
@@ -129,6 +110,25 @@ class AdministrateurController extends Controller
 
         return $adresse;
     }
+    private function createAdministratorPublicity(Request $request, Administrateur $administrateur){
+
+        $administrateur_pub = new AdministrateurPublicite();
+        $administrateur_pub->administrateur_id = $administrateur->id;
+        $administrateur_pub->save();
+    }
+
+    private function createAdministratorSite(Request $request, Administrateur $administrateur, SiteWeb $site_web){
+
+        $site_web->url = $request->input('url');
+        $site_web->save();
+
+        $administrateur_site = new AdministrateurSite();
+        $administrateur_site->administrateur_id = $administrateur->id;
+        $administrateur_site->no_compte_bancaire = $request->input('no_compte_bancaire');
+        $administrateur_site->site_web_id = $site_web->id;
+        $administrateur_site->save();
+    }
+   
     /**
      * Display the specified resource.
      *
