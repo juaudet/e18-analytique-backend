@@ -11,7 +11,7 @@ class CampagnesPublicitairesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\CampagnePublicitaire::class, 5)->create()->each(function ($cp) {
+        factory(App\CampagnePublicitaire::class, 15)->create()->each(function ($cp) {
         	$cp->bannieres()->save(factory(App\Banniere::class)->states('horizontal')->make());
         	$cp->bannieres()->save(factory(App\Banniere::class)->states('vertical')->make());
         	$cp->bannieres()->save(factory(App\Banniere::class)->states('mobile')->make());
