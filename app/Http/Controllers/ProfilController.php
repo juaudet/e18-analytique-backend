@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\ProfilCible;
+use App\SiteWebProfilCible;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProfilController extends Controller
 {
@@ -26,17 +28,47 @@ class ProfilController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required|max:255'
+            'nom' => 'required|max:255',
+            'sites_web_profil_cible' => 'required|array',
+            'sites_web_profil_cible.*.url' => 'required|max:2000|url',
         ]);
 
-        $nom = $request->input('nom');
-        $id_admin = auth()->user()->getSpecificAdminId();
-           
-        return ProfilCible::create([
-            'nom' => $nom,
-            'administrateur_publicite_id' => $id_admin,
-        ]);
+        $profilCible = DB::transaction(function () use ($request) {
+            try {
+                $nom = $request->input('nom');
+                $id_admin = auth()->user()->getSpecificAdminId();
+
+                $profilCible = ProfilCible::create([
+                    'nom' => $nom,
+                    'administrateur_publicite_id' => $id_admin,
+                ]);
+
+                $sitesWeb = [];
+                foreach($request->input('sites_web_profil_cible') as $siteWeb) {
+                    $sitesWeb[] = new SiteWebProfilCible(['url' => $siteWeb['url']]);
+                }
+                $profilCible->sitesWebProfilCible()->saveMany($sitesWeb);
+
+                $profilCible->load('sitesWebProfilCible');
+
+                return $profilCible;
+            }
+            catch (\Illuminate\Database\QueryException $exception) {
+                return false;
+            }
+        });
+
+        if($profilCible) {
+            return response()->json([
+                'message' => 'Success',
+                'profil_cible' => $profilCible
+            ], 201);
+        }
         
+        return response()->json([
+                'message' => 'Error',
+            ], 500);
+
     }
 
     /**

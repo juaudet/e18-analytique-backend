@@ -21,6 +21,10 @@ class SiteWebProfilCible extends Model
      */
     public $timestamps = false;
 
+    protected $fillable = [
+        'url'
+    ];
+
     protected $hidden = ['profil_cible_id'];
 
 }
