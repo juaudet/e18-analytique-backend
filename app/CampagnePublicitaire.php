@@ -29,4 +29,13 @@ class CampagnePublicitaire extends Model
         return $this->hasOne('App\AdministrateurPublicite');
     }
 
+    public static function campagnesAdministrateurConnecte()
+    {
+        return CampagnePublicitaire::where(
+                'administrateur_publicite_id', 
+                auth()->user()->getSpecificAdminId()
+            )
+            ->get();
+    }
+
 }

@@ -20,6 +20,8 @@ Route::group([
 	Route::get('profils', 'ProfilController@index');
 	Route::get('profils/{id}', 'ProfilController@show');
 	Route::put('profils/{id}', 'ProfilController@update');
+
+    Route::get('campagnes-publicitaires', 'CampagnePublicitaireController@index');
 });
 
 // Enregistrement
