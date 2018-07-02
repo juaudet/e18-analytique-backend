@@ -55,8 +55,11 @@ class ProfilController extends Controller
      */
     public function show($id)
     {
-
-        return ProfilCible::find($id);
+        $profilCible = ProfilCible::profilParIdAdministrateurConnecte($id);
+        if(!$profilCible) {
+            return response("Not found", 404);
+        }
+        return $profilCible;
     }
 
     /**
