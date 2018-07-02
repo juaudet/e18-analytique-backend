@@ -32,13 +32,21 @@ class ProfilController extends Controller
         $nom = $request->input('nom');
         $id_admin = auth()->user()->getSpecificAdminId();
            
-        return ProfilCible::create([
+        $url_array = $request->input('url');
+
+        $profil = ProfilCible::create([
             'nom' => $nom,
             'administrateur_publicite_id' => $id_admin,
         ]);
+
         
+        storeSiteWebByProfil($url_array, $profil->id);
     }
 
+    private function storeSiteWebByProfil($url_array, $id){
+
+        
+    }
     /**
      * Display the specified resource.
      *
