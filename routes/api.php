@@ -19,7 +19,7 @@ Route::group([
 	Route::post('profils', 'ProfilController@store');
 	Route::get('profils', 'ProfilController@index');
 	Route::get('profils/{id}', 'ProfilController@show');
-    Route::put('profils/{id}', 'ProfilController@update');
+    Route::patch('profils/{id}', 'ProfilController@update');
     Route::delete('profils/{id}', 'ProfilController@destroy');
 });
 
