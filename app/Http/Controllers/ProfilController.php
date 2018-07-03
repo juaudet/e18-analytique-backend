@@ -87,6 +87,14 @@ class ProfilController extends Controller
      */
     public function destroy($id)
     {
-        ProfilCible::destroy($id);
+        if(ProfilCible::deleteProfilCible($id)) {
+            return response()->json([
+                'message' => 'Success'
+            ], 201);
+        }
+        
+        return response()->json([
+                'message' => 'Error',
+            ], 500);
     }
 }
