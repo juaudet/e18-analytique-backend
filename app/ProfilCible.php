@@ -86,4 +86,22 @@ class ProfilCible extends Model
         });
     }
 
+    public static function deleteProfilCible($id){
+
+        return DB::transaction(function () use ($id){
+            try{
+                $profilCible = ProfilCible::where('id', $id)->first();
+
+                if($profilCible){
+                    
+                    return $profilCible->delete();
+                }
+               
+            }catch (\Illuminate\Database\QueryException $exception) {
+                return false;
+            }
+        });
+
+    }
+
 }

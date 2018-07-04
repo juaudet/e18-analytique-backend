@@ -19,9 +19,9 @@ Route::group([
 	Route::post('profils', 'ProfilController@store');
 	Route::get('profils', 'ProfilController@index');
 	Route::get('profils/{id}', 'ProfilController@show');
-	Route::put('profils/{id}', 'ProfilController@update');
-
     Route::get('campagnes-publicitaires', 'CampagnePublicitaireController@index');
+    Route::patch('profils/{id}', 'ProfilController@update');
+    Route::delete('profils/{id}', 'ProfilController@destroy');
 });
 
 // Enregistrement
