@@ -104,4 +104,43 @@ class ProfilCible extends Model
 
     }
 
+    public static function patchProfilCible(){
+
+        // return DB::transaction(function () use ($data, $id) {
+        //     try {
+        //         $nom = $data['nom'];
+        //         $id_admin = $id;
+
+        //         $profilCible = ProfilCible::find($id);
+
+        //         $profilCible = $nom;
+
+
+        //         $sitesWeb = [];
+
+        //         foreach($data['sites_web_profil_cible'] as $siteWeb) {
+
+        //             .
+        //             $sitesWeb[] = new SiteWebProfilCible(['url' => $siteWeb['url']]);
+        //         }
+
+        //         $sitesWebToDelete = sitesWebProfilCible::where('profil_cible_id', $id)->get();
+
+        //         foreach($sitesWebToDelete as $siteWebToDelete){
+        //             $siteWebToDelete->delete();
+        //         }
+                
+        //         $profilCible->sitesWebProfilCible()->saveMany($sitesWeb);
+
+        //         $profilCible->load('sitesWebProfilCible');
+
+        //         return $profilCible;
+        //     }
+        //     catch (\Illuminate\Database\QueryException $exception) {
+        //         return false;
+        //     }
+        // });
+
+    }
+
 }
