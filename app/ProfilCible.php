@@ -104,42 +104,38 @@ class ProfilCible extends Model
 
     }
 
-    public static function patchProfilCible(){
+    public static function patchProfilCible($data, $id){
 
-        // return DB::transaction(function () use ($data, $id) {
-        //     try {
-        //         $nom = $data['nom'];
-        //         $id_admin = $id;
+        return DB::transaction(function () use ($data, $id) {
+            try {
+                $nom = $data['nom'];
+                $id_admin = $id;
 
-        //         $profilCible = ProfilCible::find($id);
+                $profilCible = ProfilCible::find($id);
 
-        //         $profilCible = $nom;
+                $profilCible->nom = $nom;
 
 
-        //         $sitesWeb = [];
-
-        //         foreach($data['sites_web_profil_cible'] as $siteWeb) {
-
-        //             .
-        //             $sitesWeb[] = new SiteWebProfilCible(['url' => $siteWeb['url']]);
-        //         }
-
-        //         $sitesWebToDelete = sitesWebProfilCible::where('profil_cible_id', $id)->get();
-
-        //         foreach($sitesWebToDelete as $siteWebToDelete){
-        //             $siteWebToDelete->delete();
-        //         }
+                $sitesWebToDelete = SiteWebProfilCible::where('profil_cible_id', '=', $id)->get();
+                 foreach($sitesWebToDelete as $siteWebToDelete){
+                    $siteWebToDelete->delete();
+                }
                 
-        //         $profilCible->sitesWebProfilCible()->saveMany($sitesWeb);
+                $sitesWeb = [];
+                foreach($data['sites_web_profil_cible'] as $siteWeb) {
+                    $sitesWeb[] = new SiteWebProfilCible(['url' => $siteWeb['url']]);
+                }
+                $profilCible->sitesWebProfilCible()->saveMany($sitesWeb);
 
-        //         $profilCible->load('sitesWebProfilCible');
+                $profilCible->load('sitesWebProfilCible');
+                $profilCible->save();
 
-        //         return $profilCible;
-        //     }
-        //     catch (\Illuminate\Database\QueryException $exception) {
-        //         return false;
-        //     }
-        // });
+                return $profilCible;
+            }
+            catch (\Illuminate\Database\QueryException $exception) {
+                return false;
+            }
+        });
 
     }
 
