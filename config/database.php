@@ -1,5 +1,27 @@
 <?php
 
+/**
+ * I ask the environment variable DATABASE_URL 
+ * and then I get the config information 
+ * of the database without having securities breach !
+ */
+
+$url = parse_url(getenv("DATABASE_URL"));
+
+if(isset($url["host"])){
+
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$database = substr($url["path"], 1);
+
+}else{
+
+    $host = "127.0.0.1";
+    $username = 'forge';
+    $database = 'forge';
+    $password = '';
+}
 return [
 
     /*
@@ -56,11 +78,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', $host),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', $database),
+            'username' => env('DB_USERNAME', $username),
+            'password' => env('DB_PASSWORD', $password),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
