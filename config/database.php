@@ -8,11 +8,20 @@
 
 $url = parse_url(getenv("DATABASE_URL"));
 
+if(isset($url["host"])){
+
 $host = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $database = substr($url["path"], 1);
 
+}else{
+
+    $host = "127.0.0.1";
+    $username = 'forge';
+    $database = 'forge';
+    $password = '';
+}
 return [
 
     /*

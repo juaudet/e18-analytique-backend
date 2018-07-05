@@ -65,7 +65,9 @@ class AdministrateurController extends Controller
             $administrateur = $this->createAdministrator($request, $type);
         }catch(\Exception $e){
 
-            return "Email déjà utilisé";
+            return response()->json([
+                'message' => 'Error, email invalide',
+            ], 500);
         }
 
         $adresse = $this->createAdresse($request, $administrateur);
@@ -81,9 +83,16 @@ class AdministrateurController extends Controller
         }else{
 
             $administrateur->delete();
+
+            return response()->json([
+                'message' => 'Error, can not create the account',
+            ], 500);
         }
 
-        return $administrateur;
+        return response()->json([
+                'message' => 'success',
+                'administrateur' => $administrateur
+            ], 201);
     }
 
      private function createAdministrator(Request $request, String $type){
