@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             AdressesTableSeeder::class,
             UtilisateursTableSeeder::class,
             PagesWebTableSeeder::class,
-           // CampagnesPublicitairesTableSeeder::class,
+            CampagnesPublicitairesTableSeeder::class,
             PaiementsRedevancesTableSeeder::class,
             RedevancesTableSeeder::class,
         ]);

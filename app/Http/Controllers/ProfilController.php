@@ -69,13 +69,27 @@ class ProfilController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        
-        
-        $profil = ProfilCible::find($id);
-        $profil->nom = $request->input('nom');
+    {   
+        $request->validate([
+            'nom' => 'required|max:255',
+            'sites_web_profil_cible' => 'required|array',
+            'sites_web_profil_cible.*.url' => 'required|max:2000|regex:/^(https?:\/\/)?([a-z0-9]*\.)?[a-z0-9]+\.[a-z0-9]+$/i',
+        ]);
 
-        $profil->save();
+        
+        
+        $profilCible = ProfilCible::patchProfilCible($request->all(), $id);
+
+        if($profilCible) {
+            return response()->json([
+                'message' => 'Success',
+                'profil_cible' => $profilCible
+            ], 201);
+        }
+        
+        return response()->json([
+                'message' => 'Error',
+            ], 500);
 
     }
 
