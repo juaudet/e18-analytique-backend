@@ -14,9 +14,13 @@ class CampagnePublicitaire extends Model
      * @var string
      */
     protected $table = 'campagnes_publicitaires';
-    
-    const CREATED_AT = 'date_debut';
-    const UPDATED_AT = 'date_fin';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 
     /**
      * Get bannieres.
