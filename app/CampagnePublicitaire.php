@@ -39,6 +39,8 @@ class CampagnePublicitaire extends Model
         'active',
     ];
 
+    protected $hidden = ['administrateur_publicite_id'];
+
     public static function campagnesAdministrateurConnecte()
     {
         return CampagnePublicitaire::where(
