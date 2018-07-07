@@ -29,6 +29,15 @@ class CampagnePublicitaire extends Model
         return $this->hasOne('App\AdministrateurPublicite');
     }
 
+    protected $fillable = [
+        'administrateur_publicite_id',
+        'nom',
+        'budget',
+        'date_debut',
+        'date_fin',
+        'active',
+    ];
+
     public static function campagnesAdministrateurConnecte()
     {
         return CampagnePublicitaire::where(
