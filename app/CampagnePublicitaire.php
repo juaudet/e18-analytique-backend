@@ -70,7 +70,6 @@ class CampagnePublicitaire extends Model
                 return $campagnePublicitaire;
             }
             catch (\Illuminate\Database\QueryException $exception) {
-                var_dump($exception->getMessage());exit;
                 return false;
             }
         });
