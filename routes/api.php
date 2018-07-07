@@ -20,6 +20,7 @@ Route::group([
 	Route::get('profils', 'ProfilController@index');
 	Route::get('profils/{id}', 'ProfilController@show');
     Route::get('campagnes-publicitaires', 'CampagnePublicitaireController@index');
+    Route::post('campagnes-publicitaires', 'CampagnePublicitaireController@store');
     Route::patch('profils/{id}', 'ProfilController@update');
     Route::delete('profils/{id}', 'ProfilController@destroy');
 });

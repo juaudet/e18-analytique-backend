@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class CampagnePublicitaire extends Model
 {
@@ -45,6 +46,28 @@ class CampagnePublicitaire extends Model
                 auth()->user()->getSpecificAdminId()
             )
             ->get();
+    }
+
+    public static function creerCampagne($data) {
+        return DB::transaction(function () use ($data) {
+            try {
+
+                $campagnePublicitaire = CampagnePublicitaire::create([
+                    'administrateur_publicite_id' => auth()->user()->getSpecificAdminId(),
+                    'nom' => $data['nom'],
+                    'budget' => $data['budget'],
+                    'date_debut' => $data['date_debut'],
+                    'date_fin' => $data['date_fin'],
+                    'active' => $data['active'],
+                ]);
+
+                return $campagnePublicitaire;
+            }
+            catch (\Illuminate\Database\QueryException $exception) {
+                var_dump($exception->getMessage());exit;
+                return false;
+            }
+        });
     }
 
 }
