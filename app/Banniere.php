@@ -14,4 +14,11 @@ class Banniere extends Model
      */
     public $timestamps = false;
 
+
+    protected $fillable = [
+        'url',
+        'format',
+        'image'
+    ];
+
 }
