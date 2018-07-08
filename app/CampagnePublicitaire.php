@@ -47,7 +47,7 @@ class CampagnePublicitaire extends Model
 
     public static function campagnesAdministrateurConnecte()
     {
-        return CampagnePublicitaire::where(
+        return CampagnePublicitaire::with('bannieres')->where(
                 'administrateur_publicite_id', 
                 auth()->user()->getSpecificAdminId()
             )
@@ -69,11 +69,11 @@ class CampagnePublicitaire extends Model
 
                 $bannieres = [];
                 foreach($data['bannieres'] as $banniere) {
-                $bannieres[] = new Banniere([
-                    'url' => '',
+                    $bannieres[] = new Banniere([
+                        'url' => '',
                         'format' => $banniere['format'],
                         'image' => $banniere['image'],
-                ]);
+                    ]);
                 }
                 $campagnePublicitaire->bannieres()->saveMany($bannieres);
 
