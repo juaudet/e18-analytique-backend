@@ -27,7 +27,21 @@ class CampagnePublicitaireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // TODO
+        $request->validate([]);
+
+        $campagnePub = CampagnePublicitaire::creerCampagne($request->all());
+
+        if($campagnePub) {
+            return response()->json([
+                'message' => 'Success',
+                'campagne_pub' => $campagnePub
+            ], 201);
+        }
+        
+        return response()->json([
+                'message' => 'Error',
+            ], 500);
     }
 
     /**
