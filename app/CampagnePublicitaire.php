@@ -67,6 +67,17 @@ class CampagnePublicitaire extends Model
                     'active' => $data['active'],
                 ]);
 
+                $bannieres = [];
+                $bannieres[] = new Banniere([
+                    'url' => '',
+                    'format' => 'horizontal',
+                    'image' => $data['image_horizontale']
+                ]);
+
+                $campagnePublicitaire->bannieres()->saveMany($bannieres);
+
+                $campagnePublicitaire->load('bannieres');
+
                 return $campagnePublicitaire;
             }
             catch (\Illuminate\Database\QueryException $exception) {
