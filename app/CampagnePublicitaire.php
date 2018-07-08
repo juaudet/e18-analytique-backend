@@ -68,12 +68,13 @@ class CampagnePublicitaire extends Model
                 ]);
 
                 $bannieres = [];
+                foreach($data['bannieres'] as $banniere) {
                 $bannieres[] = new Banniere([
                     'url' => '',
-                    'format' => 'horizontal',
-                    'image' => $data['image_horizontale']
+                        'format' => $banniere['format'],
+                        'image' => $banniere['image'],
                 ]);
-
+                }
                 $campagnePublicitaire->bannieres()->saveMany($bannieres);
 
                 $campagnePublicitaire->load('bannieres');
