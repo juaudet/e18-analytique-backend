@@ -75,6 +75,14 @@ class CampagnePublicitaireController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(CampagnePublicitaire::deleteCampagneAdministrateurConnecte($id)) {
+            return response()->json([
+                'message' => 'Success'
+            ], 200);
+        }
+        return response()->json([
+                'message' => 'Not found.',
+            ], 404);
+        
     }
 }
