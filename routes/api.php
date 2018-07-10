@@ -21,6 +21,7 @@ Route::group([
 	Route::get('profils/{id}', 'ProfilController@show');
     Route::get('campagnes-publicitaires', 'CampagnePublicitaireController@index');
     Route::post('campagnes-publicitaires', 'CampagnePublicitaireController@store');
+    Route::delete('campagnes-publicitaires/{id}', 'CampagnePublicitaireController@destroy');
     Route::patch('profils/{id}', 'ProfilController@update');
     Route::delete('profils/{id}', 'ProfilController@destroy');
 });
@@ -43,3 +44,4 @@ Route::group([
     Route::get('me', 'AuthController@me');
 });
 
+Route::get('banniere', 'BanniereController@fournirBanniere');

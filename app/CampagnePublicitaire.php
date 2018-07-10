@@ -87,4 +87,17 @@ class CampagnePublicitaire extends Model
         });
     }
 
+    public static function deleteCampagneAdministrateurConnecte($id) {
+        $campagne = CampagnePublicitaire::where(
+                'administrateur_publicite_id', auth()->user()->getSpecificAdminId()
+            )
+            ->where('id', $id)
+            ->first();
+        if($campagne) {
+            $campagne->delete();
+            return true;
+        }
+        return false;
+    }
+
 }
