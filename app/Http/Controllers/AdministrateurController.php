@@ -100,7 +100,7 @@ class AdministrateurController extends Controller
         $administrateur = new Administrateur();
         $administrateur->nom =  $request->input('nom');
         $administrateur->password = Hash::make($request->input('password'));
-        $administrateur->email = $request->input('email');
+        $administrateur->email = strtolower($request->input('email'));
         $administrateur->role = $type;
         $administrateur->save();
 
