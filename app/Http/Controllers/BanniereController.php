@@ -16,6 +16,10 @@ class BanniereController extends Controller
     			Rule::in(['horizontal', 'vertical', 'mobile'])
     		]
     	]);
-    	return Banniere::banniereParAlgorithme($request->all());
+    	$banniere = Banniere::banniereParAlgorithme($request->all());
+    	if($request->input('struct') == 'json') {
+    		return $banniere;
+    	}
+        return view('banniere', ['banniere' => $banniere]);
     }
 }
