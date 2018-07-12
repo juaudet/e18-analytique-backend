@@ -1,0 +1,1 @@
+<a href="{{ $banniere->url }}"><img src="{{ $banniere->image }}" alt="" /></a>
