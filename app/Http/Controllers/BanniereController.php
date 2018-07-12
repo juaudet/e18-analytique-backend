@@ -17,6 +17,9 @@ class BanniereController extends Controller
     		]
     	]);
     	$banniere = Banniere::banniereParAlgorithme($request->all());
+    	if($request->input('struct') == 'json') {
+    		return $banniere;
+    	}
         return view('banniere', ['banniere' => $banniere]);
     }
 }
