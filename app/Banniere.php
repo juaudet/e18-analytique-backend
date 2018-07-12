@@ -16,7 +16,7 @@ class Banniere extends Model
 
     public static function banniereParAlgorithme($data) {
     	$banniere = Banniere::where('format', $data['format'])->inRandomOrder()->first();
-        return response('<img src="' . $banniere->image . '" alt="" />');
+        return $banniere;
     }
 
     protected $fillable = [
