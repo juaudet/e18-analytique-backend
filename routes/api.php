@@ -26,6 +26,8 @@ Route::group([
     Route::delete('profils/{id}', 'ProfilController@destroy');
 });
 
+
+
 // Enregistrement
 Route::post('register', 'AdministrateurController@store');
 
@@ -44,4 +46,4 @@ Route::group([
     Route::get('me', 'AuthController@me');
 });
 
-Route::get('banniere', 'BanniereController@fournirBanniere');
+Route::get('banniere', 'BanniereController@getBanniere');

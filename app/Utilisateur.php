@@ -7,11 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class Utilisateur extends Model
 {
 	
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
     public $timestamps = false;
+
+    protected $hidden = ['id', 'token'];
+
+
+    public static function getUtilisateur($token) {
+
+        $utilisateur = Utilisateur::where('token', $token)->inRandomOrder()->first();
+
+        return $utilisateur;
+    }
+
+    public static function creerUtilisateur(){
+
+    }
+
+    protected $fillable = [
+        'token',
+        'addresse_ip'
+    ];
 
 }
