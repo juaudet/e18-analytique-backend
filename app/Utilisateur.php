@@ -31,6 +31,21 @@ class Utilisateur extends Model
 
     }
 
+    public static function getNombreVue($utilisateur){
+
+        $nombreVue = PageWeb::where('utilisateur_id', '=', $utilisateur['id'])->count();
+
+        return $nombreVue;
+    }
+
+    public static function getNombreClique($utilisateur){
+
+        $nombreClique = Redevance::where('utilisateur_id', '=', $utilisateur['id'])
+                                ->where('cliquee', '=', 'true')->count();
+
+        return $nombreClique;
+    }
+
     protected $fillable = [
         'token',
         'addresse_ip'

@@ -76,7 +76,7 @@ class CampagnePublicitaire extends Model
                     ]);
                 }
 
-                foreach($data['profils'] as $profil){
+                foreach($data['profilsCible'] as $profil){
                     $campagnesProfils = CampagnesProfils::createCampagnesProfils($campagnePublicitaire['id'], $profil['id']);
                 }
 

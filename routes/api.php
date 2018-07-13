@@ -51,3 +51,7 @@ Route::group([
 });
 
 Route::get('banniere', 'BanniereController@getBanniere');
+
+Route::get('nombreVueUtilisateur', 'StatistiqueController@getVue');
+
+Route::get('nombreCliqueUtilisateur', 'StatistiqueController@getClique');

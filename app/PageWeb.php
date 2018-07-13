@@ -43,4 +43,31 @@ class PageWeb extends Model
         return $historique;
     }
 
+    public static function getVueByPage($url){
+
+        $nombreVue = PageWeb::where('url','=',$url)->count();
+
+        return nombreVue;
+    }
+
+    public static function getVueByEntireWebSite($siteID){
+
+        $nombreVue = PageWeb::where('site_web_id','=', $siteID)->count();
+        
+        return $nombreVue;
+    }
+
+    /**
+     * Il faut définir la valeur que devrait avoir $navigateur,
+     * peut-être faire un subString pour avoir juste le début, etc..
+     */
+    public static function getVueByNavigator($siteID, $navigateur){
+
+        $nombreVue = PageWeb::where('site_web_id', '=', $siteID)
+                            ->where('navigateur', '=', $navigateur)
+                            ->count();
+
+        return $nombreVue;
+    }
+
 }
