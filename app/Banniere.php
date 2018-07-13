@@ -18,23 +18,27 @@ class Banniere extends Model
 
     public static function getBanniereAlgorithme($data) {
 
-        // if($data['token']){
+        
+        if($data['token']){
 
-        //     $utilisateur = Utilisateur::getUtilisateur($data['token']);
+            $utilisateur = Utilisateur::getUtilisateur($data['token']);
             
-        //     // récupère l'historique d'un utilisateur et ainsi obtenir ses sitewebprofilcible visité
-        //     $historique = $utilisateur->getHistorique();
-        // }else{
+            // récupère l'historique d'un utilisateur et ainsi obtenir ses sitewebprofilcible visité
+            $historique = Utilisateur::getHistorique($utilisateur);
+      
+        }
 
-            
-        //     $utilisateur = Utilisateur::store($data);
-        // }
+        
+		// $redevance = Redevance::store($request->all());
 
 
         $banniere = Banniere::where('format', $data['format'])->inRandomOrder()->first();
 
         return $banniere;
     }
+
+
+
 
 
     protected $fillable = [

@@ -23,6 +23,14 @@ class Utilisateur extends Model
 
     }
 
+    public static function getHistorique($utilisateur){
+
+        $historique = PageWeb::where('utilisateur_id', '=', $utilisateur['id'])->get();
+
+        return $historique;
+
+    }
+
     protected $fillable = [
         'token',
         'addresse_ip'

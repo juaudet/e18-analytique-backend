@@ -22,11 +22,13 @@ class BanniereController extends Controller
 		
 
 		$banniere = Banniere::getBanniereAlgorithme($request->all());
-		// $redevance = Redevance::store($request->all());
 		
     	if($request->input('struct') == 'json') {
     		return $banniere;
-    	}
+		}
+		
 		return view('banniere', ['banniere' => $banniere]);
 	}
+
+	
 }

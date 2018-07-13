@@ -75,11 +75,16 @@ class CampagnePublicitaire extends Model
                         'image' => $banniere['image'],
                     ]);
                 }
+
+                foreach($data['profils'] as $profil){
+                    $campagnesProfils = CampagnesProfils::createCampagnesProfils($campagnePublicitaire['id'], $profil['id']);
+                }
+
                 $campagnePublicitaire->bannieres()->saveMany($bannieres);
 
                 $campagnePublicitaire->load('bannieres');
 
-                return $campagnePublicitaire;
+                return $campagnesProfils;
             }
             catch (\Illuminate\Database\QueryException $exception) {
                 return false;
