@@ -50,4 +50,4 @@ Route::group([
     Route::get('me', 'AuthController@me');
 });
 
-Route::get('banniere', 'BanniereController@fournirBanniere');
+Route::get('banniere', 'BanniereController@getBanniere');

@@ -34,7 +34,21 @@ class RedevanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //   // TODO
+        //   $request->validate([]);
+
+        //   $redevance = Redevance::create($request->all());
+  
+        //   if($redevance) {
+        //       return response()->json([
+        //           'message' => 'Success',
+        //           'redevance' => $redevance
+        //       ], 201);
+        //   }
+          
+        //   return response()->json([
+        //           'message' => 'Error',
+        //       ], 500);
     }
 
     /**
