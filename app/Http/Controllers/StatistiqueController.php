@@ -77,4 +77,29 @@ class StatistiqueController extends Controller
                 'message' => 'Error',
             ], 500);
     }
+
+    public function getVueByNavigator($siteID, $navigateur){
+           
+        
+        $nombreVue = Utilisateur::getVueByNavigator($siteID, $navigateur);
+
+        if($nombreVue) {
+            return response()->json([
+                'message' => 'Success',
+                'nombreVue' => $nombreVue
+            ], 201);
+        }else{
+            return response()->json([
+                'message' => 'Success',
+                'nombreClique' => '0'
+            ], 201);
+
+        }
+        
+        return response()->json([
+                'message' => 'Error',
+            ], 500);
+    }
+
+    
 }
