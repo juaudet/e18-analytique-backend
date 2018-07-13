@@ -26,6 +26,12 @@ Route::group([
     Route::delete('profils/{id}', 'ProfilController@destroy');
 });
 
+Route::group([
+    'middleware' => ['auth:api', 'role:site']
+], function ($router) {
+    Route::get('pages-web', 'PageWebController@index');
+});
+
 // Enregistrement
 Route::post('register', 'AdministrateurController@store');
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\PageWeb;
+
 class PageWebController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class PageWebController extends Controller
      */
     public function index()
     {
-        //
+        $historique = PageWeb::historique();
+        return $historique;
     }
 
     /**
