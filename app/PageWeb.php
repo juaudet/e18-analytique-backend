@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+use App\SiteWeb;
+
 class PageWeb extends Model
 {
     
@@ -14,6 +16,14 @@ class PageWeb extends Model
      * @var string
      */
     protected $table = 'pages_web';
+
+    protected $fillable = [
+        'utilisateur_id',
+        'url',
+        'date_visite',
+        'navigateur',
+        'site_web_id',
+    ];
     
     /**
      * Indicates if the model should be timestamped.
@@ -21,6 +31,25 @@ class PageWeb extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public static function creerPageWeb($data) {
+        return DB::transaction(function () use ($data) {
+            try {
+                $siteWeb = SiteWeb::getSiteWebFromAdminSiteToken($data['token_site']);
+                $pageWeb = PageWeb::create([
+                    'utilisateur_id' => $data['utilisateur']['id'],
+                    'url' => $data['url'],
+                    'date_visite' => now()->toDateTimeString(), // https://stackoverflow.com/a/32720098
+                    'navigateur' => $data['navigateur'],
+                    'site_web_id' => is_null($siteWeb) ? 0 : $siteWeb->id
+                ]);
+                return $pageWeb;
+            }
+            catch (\Illuminate\Database\QueryException $exception) {
+                return false;
+            }
+        });
+    }
 
     public static function historique() {
         $historique = DB::table('pages_web') //PageWeb

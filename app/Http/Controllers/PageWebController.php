@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\PageWeb;
+use App\Utilisateur;
 
 class PageWebController extends Controller
 {
@@ -84,4 +85,25 @@ class PageWebController extends Controller
     {
         //
     }
+
+    public function track(Request $request) {
+        
+        $utilisateur = Utilisateur::getUtilisateur($request->cookie('token'));
+        if(!$utilisateur) {
+            $utilisateur = Utilisateur::creerUtilisateur([
+                'addresse_ip' => $request->ip()
+            ]);
+        }
+        $pageWeb = PageWeb::creerPageWeb([
+            'url' => $request->input('url'),
+            'navigateur' => $request->header('User-Agent'),
+            'utilisateur' => $utilisateur,
+            'token_site' => $request->input('token'),
+        ]);
+        if (! $pageWeb) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        return response('ok')->cookie('token', $utilisateur->token);
+    }
+
 }

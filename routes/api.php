@@ -32,6 +32,8 @@ Route::group([
     Route::get('pages-web', 'PageWebController@index');
 });
 
+Route::get('page', 'PageWebController@track');
+
 // Enregistrement
 Route::post('register', 'AdministrateurController@store');
 
