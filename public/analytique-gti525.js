@@ -21,9 +21,12 @@
 
         this.page = function (url) {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', domain + '/api/page?token=' + token + '&url=' + url);
+            xhr.open('POST', domain + '/api/page');
+            // https://stackoverflow.com/q/10977058
             xhr.withCredentials = true;
-            xhr.send();
+            // https://stackoverflow.com/a/9713078
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send('token=' + token + '&url=' + url);
         }
 
     };
