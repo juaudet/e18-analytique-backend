@@ -5,9 +5,45 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Utilisateur;
+use App\Redevance;
 
 class StatistiqueController extends Controller
 {
+    //Renvoi le nombre total de visiteur d'un administrateur
+    // de site
+    public function getTotalVue(){
+
+        $nombreVue = Redevance::getVue();
+  
+        if($nombreVue || $nombreVue == 0) {
+            return response()->json([
+                'message' => 'Success',
+                'nombreVue' => $nombreVue
+            ], 201);
+        }
+        
+        return response()->json([
+                'message' => 'Error',
+            ], 500);
+
+    }
+
+    public function getProfitTotal(){
+
+        $profitTotaux = Redevance::getProfitTotal();
+
+        if($profitTotaux || $profitTotaux == 0){
+            return response()->json([
+                'message' => 'Success',
+                'profitTotaux' => $profitTotaux
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'Error',
+        ], 500);
+    }
+
     // Obtenir le nombe de vue d'un utilisateur sur l'ensemble des pages web
     public function getVue(){
 
