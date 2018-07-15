@@ -28,6 +28,9 @@ class Utilisateur extends Model
         return $utilisateur;
     }
 
+    /**
+     * Historique de navigation pour un utilisateurs
+     */
     public static function getHistorique($utilisateur){
 
         $historique = PageWeb::where('utilisateur_id', '=', $utilisateur['id'])->get();
@@ -36,6 +39,10 @@ class Utilisateur extends Model
 
     }
 
+    /**
+     * Nombre de vue pour un utilisateurs pour tous les sites 
+     * confondus
+     */
     public static function getNombreVue($utilisateur){
 
         $nombreVue = PageWeb::where('utilisateur_id', '=', $utilisateur['id'])->count();
@@ -43,6 +50,10 @@ class Utilisateur extends Model
         return $nombreVue;
     }
 
+    /**
+     * Nombre de clique pour un utilisateurs pour tous les
+     * sites confondus.
+     */
     public static function getNombreClique($utilisateur){
 
         $nombreClique = Redevance::where('utilisateur_id', '=', $utilisateur['id'])

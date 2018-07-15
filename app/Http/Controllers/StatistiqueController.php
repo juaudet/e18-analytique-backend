@@ -87,7 +87,10 @@ class StatistiqueController extends Controller
     }
 
     
-
+    /**
+     * Nombre de clique d'un utilisateur pour tous
+     * ses sites confondus
+     */
     public function getClique(){
 
         
@@ -124,12 +127,6 @@ class StatistiqueController extends Controller
                 'message' => 'Success',
                 'nombreVue' => $nombreVue
             ], 201);
-        }else{
-            return response()->json([
-                'message' => 'Success',
-                'nombreClique' => '0'
-            ], 201);
-
         }
         
         return response()->json([
@@ -137,5 +134,5 @@ class StatistiqueController extends Controller
             ], 500);
     }
 
-    
+
 }
