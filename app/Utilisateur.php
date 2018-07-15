@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Utilisateur extends Model
 {
@@ -19,8 +20,12 @@ class Utilisateur extends Model
         return $utilisateur;
     }
 
-    public static function creerUtilisateur(){
-
+    public static function creerUtilisateur($data){
+        $utilisateur = Utilisateur::create([
+            'token' => Str::uuid(),
+            'addresse_ip' => $data['addresse_ip']
+        ]);
+        return $utilisateur;
     }
 
     public static function getHistorique($utilisateur){
