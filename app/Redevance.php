@@ -8,19 +8,19 @@ class Redevance extends Model
 {
 
    	
-    // /**
-    //  * The table associated with the model.
-    //  *
-    //  * @var string
-    //  */
-    // protected $table = 'redevances';
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'redevances';
 
-    // /**
-    //  * Indicates if the model should be timestamped.
-    //  *
-    //  * @var bool
-    //  */
-    // public $timestamps = false;
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 
     // /**
     //  * Get bannieres.
