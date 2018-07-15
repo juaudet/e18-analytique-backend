@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class SiteWeb extends Model
 {
@@ -19,4 +20,15 @@ class SiteWeb extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public static function getSiteWebFromAdminSiteToken($token) {
+        $siteWeb =  DB::table('sites_web')
+                ->join('administrateurs_site', 'administrateurs_site.site_web_id', '=', 'sites_web.id')
+                ->where('administrateurs_site.token_site', $token)
+                ->select(
+                    'sites_web.id'
+                )
+                ->first();
+        return $siteWeb;
+    }
 }
