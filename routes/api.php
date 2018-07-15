@@ -54,6 +54,12 @@ Route::group([
 
 Route::get('banniere', 'BanniereController@getBanniere');
 
+// Get nombre de vue total d'un administrateur de site
+Route::get('nombreTotalVue', 'StatistiqueController@getTotalVue');
+
+// Get profit total d'un administrateur de site
+Route::get('montantTotal', 'StatistiqueController@getProfitTotal');
+
 Route::get('nombreVueUtilisateur', 'StatistiqueController@getVue');
 
 Route::get('nombreCliqueUtilisateur', 'StatistiqueController@getClique');
