@@ -49,6 +49,10 @@ class AdministrateurController extends Controller
         ]);
     }
 
+    public function getToken(Request $request){
+
+        $idAdmin = $request['administrateurs_id'];
+    }
     /**
      * Store a newly created resource in storage.
      *

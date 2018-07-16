@@ -30,6 +30,7 @@ Route::group([
     'middleware' => ['auth:api', 'role:site']
 ], function ($router) {
     Route::get('pages-web', 'PageWebController@index');
+    Route::get('token', 'AdministrateurController@getToken');
 });
 
 Route::post('page', 'PageWebController@track');
