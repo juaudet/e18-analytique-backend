@@ -66,7 +66,7 @@ class CampagnePublicitaire extends Model
                     'date_debut' => $data['date_debut'],
                     'date_fin' => $data['date_fin'],
                     'active' => $data['active'],
-                    'url' => @data['url'],
+                    'url' => $data['url'],
                 ]);
 
                 $bannieres = [];
