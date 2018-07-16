@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class AdministrateurSite extends Model
 {
@@ -20,5 +22,13 @@ class AdministrateurSite extends Model
      * @var bool
      */
     public $timestamps = false;
+    
 
+    public static function getToken($idAdmin){
+
+        $administrateurSite = AdministrateurSite::where('administrateur_id', $idAdmin)->get();
+        $tokenSite = $administrateurSite[0]['token_site'];
+
+        return $tokenSite;
+    }
 }
