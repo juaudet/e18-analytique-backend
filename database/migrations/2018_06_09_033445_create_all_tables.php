@@ -218,12 +218,12 @@ class CreateAllTables extends Migration
             $table->dropForeign(['administrateur_publicite_id']);
 
         });
-        Schema::dropIfExists('campagnes_profils');
+        //Schema::dropIfExists('campagnes_profils');
         Schema::dropIfExists('campagnes_publicitaires');
         Schema::dropIfExists('bannieres');
         Schema::dropIfExists('paiements_redevances');
         Schema::dropIfExists('utilisateurs');
-        Schema::dropIfExists('redevances');
+        //Schema::dropIfExists('redevances');
         Schema::dropIfExists('adresses');
         Schema::dropIfExists('sites_web');
         Schema::dropIfExists('pages_web');
