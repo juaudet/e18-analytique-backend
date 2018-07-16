@@ -26,6 +26,17 @@ Route::group([
     Route::delete('profils/{id}', 'ProfilController@destroy');
 });
 
+Route::group([
+    'middleware' => ['auth:api', 'role:site']
+], function ($router) {
+    Route::get('pages-web', 'PageWebController@index');
+});
+
+
+Route::get('token-site', 'AdministrateurController@getToken');
+
+Route::post('page', 'PageWebController@track');
+
 // Enregistrement
 Route::post('register', 'AdministrateurController@store');
 
@@ -44,4 +55,16 @@ Route::group([
     Route::get('me', 'AuthController@me');
 });
 
-Route::get('banniere', 'BanniereController@fournirBanniere');
+Route::get('banniere', 'BanniereController@getBanniere');
+
+// Get nombre de vue total d'un administrateur de site
+Route::get('nombreTotalVue', 'StatistiqueController@getTotalVue');
+
+// Get profit total d'un administrateur de site
+Route::get('montantTotal', 'StatistiqueController@getProfitTotal');
+
+Route::get('nombreVueUtilisateur', 'StatistiqueController@getVue');
+
+Route::get('nombreCliqueUtilisateur', 'StatistiqueController@getClique');
+
+Route::get('nombreVueNavigateur/{siteID}/{navigateur}', 'StatistiqueController@getVueByNavigator');

@@ -41,6 +41,7 @@ class CampagnePublicitaire extends Model
         'date_debut',
         'date_fin',
         'active',
+        'url',
     ];
 
     protected $hidden = ['administrateur_publicite_id'];
@@ -65,6 +66,7 @@ class CampagnePublicitaire extends Model
                     'date_debut' => $data['date_debut'],
                     'date_fin' => $data['date_fin'],
                     'active' => $data['active'],
+                    'url' => $data['url'],
                 ]);
 
                 $bannieres = [];
@@ -75,11 +77,16 @@ class CampagnePublicitaire extends Model
                         'image' => $banniere['image'],
                     ]);
                 }
+
+                foreach($data['profilsCible'] as $profil){
+                    $campagnesProfils = CampagnesProfils::createCampagnesProfils($campagnePublicitaire['id'], $profil['id']);
+                }
+
                 $campagnePublicitaire->bannieres()->saveMany($bannieres);
 
                 $campagnePublicitaire->load('bannieres');
 
-                return $campagnePublicitaire;
+                return $campagnesProfils;
             }
             catch (\Illuminate\Database\QueryException $exception) {
                 return false;

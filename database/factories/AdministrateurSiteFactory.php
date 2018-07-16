@@ -10,6 +10,7 @@ $factory->define(App\AdministrateurSite::class, function (Faker $faker) {
         'site_web_id' => function () {
             return factory(App\SiteWeb::class)->create()->id;
         },
-        'no_compte_bancaire' => $faker->bankAccountNumber
+        'no_compte_bancaire' => $faker->bankAccountNumber,
+        'token_site' => $faker->uuid,
     ];
 });

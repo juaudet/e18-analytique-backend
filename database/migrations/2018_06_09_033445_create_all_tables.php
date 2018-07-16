@@ -138,6 +138,20 @@ class CreateAllTables extends Migration
                 ->references('id')
                 ->on('administrateurs_publicite');
         });
+        Schema::create('campagnes_profils', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('campagne_publicitaire_id');
+            $table->foreign('campagne_publicitaire_id')
+                ->references('id')
+                ->on('campagnes_publicitaires')
+                ->onDelete('cascade');
+            $table->unsignedInteger('profil_cible_id');
+            $table->foreign('profil_cible_id')
+                ->references('id')
+                ->on('profils_cible')
+                ->onDelete('cascade');
+
+        });
         Schema::create('sites_web_profil_cible', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url');
@@ -161,7 +175,8 @@ class CreateAllTables extends Migration
      * @return void
      */
     public function down()
-    {
+    {   
+        
         Schema::table('bannieres', function (Blueprint $table) {
             $table->dropForeign(['campagne_publicitaire_id']);
         });
@@ -187,6 +202,10 @@ class CreateAllTables extends Migration
             $table->dropForeign(['administrateur_site_id']);
 
         });
+        Schema::table('campagnes_profils', function (Blueprint $table){
+            $table->dropForeign(['campagne_publicitaire_id']);
+            $table->dropForeign(['profil_cible_id']);
+        });
         Schema::table('profils_cible', function (Blueprint $table) {
             $table->dropForeign(['administrateur_publicite_id']);
 
@@ -199,6 +218,7 @@ class CreateAllTables extends Migration
             $table->dropForeign(['administrateur_publicite_id']);
 
         });
+        Schema::dropIfExists('campagnes_profils');
         Schema::dropIfExists('campagnes_publicitaires');
         Schema::dropIfExists('bannieres');
         Schema::dropIfExists('paiements_redevances');

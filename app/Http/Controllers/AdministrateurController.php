@@ -49,6 +49,23 @@ class AdministrateurController extends Controller
         ]);
     }
 
+    public function getToken(){
+
+        $idAdmin = auth()->user()->id;
+
+        $token = AdministrateurSite::getToken($idAdmin);
+
+        if($token){
+            return response()->json([
+                'message' => 'success',
+                'token_site' => $token
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'error',
+        ], 500);
+    }
     /**
      * Store a newly created resource in storage.
      *

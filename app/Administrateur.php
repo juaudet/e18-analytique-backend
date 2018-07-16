@@ -5,7 +5,6 @@ namespace App;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Auth;
 
 // http://jwt-auth.readthedocs.io/en/develop/quick-start/#update-your-user-model
 class Administrateur extends Authenticatable implements JWTSubject
