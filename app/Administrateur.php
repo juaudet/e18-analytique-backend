@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use App\AdministrateurPublicite;
 use App\AdministrateurSite;
 use App\SiteWeb;
@@ -80,6 +81,7 @@ class Administrateur extends Authenticatable implements JWTSubject
                         'administrateur_id' => $administrateur->id,
                         'no_compte_bancaire' => $data['no_compte_bancaire'],
                         'site_web_id' => $site_web->id,
+                        'token_site' => Str::uuid(),
                     ]);
 
                 }
