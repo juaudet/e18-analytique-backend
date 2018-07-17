@@ -21,6 +21,13 @@ class SiteWeb extends Model
      */
     public $timestamps = false;
 
+      
+    
+    protected $fillable = [
+        'url',
+    ];
+
+
     public static function getSiteWebFromAdminSiteToken($token) {
         $siteWeb =  DB::table('sites_web')
                 ->join('administrateurs_site', 'administrateurs_site.site_web_id', '=', 'sites_web.id')

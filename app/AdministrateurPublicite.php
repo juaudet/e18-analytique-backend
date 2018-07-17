@@ -21,6 +21,10 @@ class AdministrateurPublicite extends Model
      */
     public $timestamps = false;
 
+    protected $fillable = [
+        'administrateur_id',
+    ];
+
     /**
      * Get profils cible.
      */
