@@ -218,19 +218,19 @@ class CreateAllTables extends Migration
             $table->dropForeign(['administrateur_publicite_id']);
 
         });
-        // Schema::dropIfExists('campagnes_profils');
-        // Schema::dropIfExists('campagnes_publicitaires');
-        // Schema::dropIfExists('bannieres');
-        // Schema::dropIfExists('paiements_redevances');
-        // Schema::dropIfExists('utilisateurs');
-        // Schema::dropIfExists('redevances');
-        // Schema::dropIfExists('adresses');
-        // Schema::dropIfExists('sites_web');
-        // Schema::dropIfExists('pages_web');
-        // Schema::dropIfExists('administrateurs');
-        // Schema::dropIfExists('administrateurs_site');
-        // Schema::dropIfExists('administrateurs_publicite');
-        // Schema::dropIfExists('profils_cible');
-        // Schema::dropIfExists('sites_web_profil_cible');
+        Schema::dropIfExists('campagnes_profils');
+        Schema::dropIfExists('campagnes_publicitaires');
+        Schema::dropIfExists('bannieres');
+        Schema::dropIfExists('paiements_redevances');
+        Schema::dropIfExists('utilisateurs');
+        Schema::dropIfExists('redevances');
+        Schema::dropIfExists('adresses');
+        Schema::dropIfExists('sites_web');
+        Schema::dropIfExists('pages_web');
+        Schema::dropIfExists('administrateurs');
+        Schema::dropIfExists('administrateurs_site');
+        Schema::dropIfExists('administrateurs_publicite');
+        Schema::dropIfExists('profils_cible');
+        Schema::dropIfExists('sites_web_profil_cible');
     }
 }
