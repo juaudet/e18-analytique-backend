@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AdministrateurSite extends Model
 {
@@ -22,8 +23,11 @@ class AdministrateurSite extends Model
      * @var bool
      */
     public $timestamps = false;
-    
 
+    public function __construct() {
+        $this->token_site = Str::uuid();
+    }
+    
     public static function getToken($idAdmin){
 
         $administrateurSite = AdministrateurSite::where('administrateur_id', $idAdmin)->get();
