@@ -9,14 +9,21 @@ use Illuminate\Support\Str;
 
 class AdministrateurSite extends Model
 {
-	
-    /**
+	 /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'administrateurs_site';
     
+    protected $fillable = [
+        'administrateur_id',
+        'no_compte_bancaire',
+        'site_web_id',
+        'token_site',
+    ];
+
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -27,6 +34,7 @@ class AdministrateurSite extends Model
     public function __construct() {
         $this->token_site = Str::uuid();
     }
+
     
     public static function getToken($idAdmin){
 

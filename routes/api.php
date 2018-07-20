@@ -55,6 +55,8 @@ Route::group([
     Route::get('me', 'AuthController@me');
 });
 
+Route::get('redevances', "RedevanceController@getRedevance");
+
 Route::get('banniere', 'BanniereController@getBanniere');
 
 // Get nombre de vue total d'un administrateur de site
