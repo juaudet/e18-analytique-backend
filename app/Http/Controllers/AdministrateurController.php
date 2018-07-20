@@ -75,6 +75,7 @@ class AdministrateurController extends Controller
     public function store(Request $request)
     {
         
+    
         $administrateur = Administrateur::createAdministrator($request->all());
 
         if($administrateur) {

@@ -32,7 +32,9 @@ class AdministrateurSite extends Model
     public $timestamps = false;
 
     public function __construct() {
+        $this->token_site = Str::uuid();
     }
+
     
     public static function getToken($idAdmin){
 

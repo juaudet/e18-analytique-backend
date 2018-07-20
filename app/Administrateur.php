@@ -50,6 +50,7 @@ class Administrateur extends Authenticatable implements JWTSubject
         return DB::transaction(function () use ($data) {
             try {
 
+               
                 $administrateur = Administrateur::create([
                     'nom' => $data['nom'],
                     'password' => Hash::make($data['password']),
@@ -57,6 +58,8 @@ class Administrateur extends Authenticatable implements JWTSubject
                     'role' => $data['type'],
                 ]);
                 
+               
+               
                 $adresse = Adresse::create([
                     'no_civique' => $data['no_civique'],
                     'rue' => $data['rue'],
@@ -65,6 +68,7 @@ class Administrateur extends Authenticatable implements JWTSubject
                     'administrateur_id' => $administrateur->id,
                 ]);
 
+             
                 if($data['type'] == 'publicite'){
 
                     $adminSpec = AdministrateurPublicite::create([
@@ -76,13 +80,19 @@ class Administrateur extends Authenticatable implements JWTSubject
                     $site_web = SiteWeb::create([
                         'url' => $data['url'],
                     ]);
-                   
-                    $adminSpec = AdministrateurSite::create([
-                        'administrateur_id' => $administrateur->id,
-                        'no_compte_bancaire' => $data['no_compte_bancaire'],
-                        'site_web_id' => $site_web->id,
-                        'token_site' => Str::uuid(),
-                    ]);
+              
+                    $adminSpec = new AdministrateurSite();
+                    $adminSpec->administrateur_id = $administrateur->id;
+                    $adminSpec->no_compte_bancaire =$data['no_compte_bancaire'];
+                    $adminSpec->site_web_id = $site_web->id;
+                    $adminSpec->save();
+                    
+                    // $adminSpec = AdministrateurSite::create([
+                    //     'administrateur_id' => $administrateur->id,
+                    //     'no_compte_bancaire' => strval($data['no_compte_bancaire']),
+                    //     'site_web_id' => $site_web->id,
+                    // ]);
+
 
                 }
 
