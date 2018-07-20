@@ -14,7 +14,7 @@
                         target.innerHTML = xhr.responseText;
                     }
                 }
-                xhr.open('GET', domain + '/api/banniere?format=' + format);
+                xhr.open('GET', domain + '/api/banniere?token=' + token + '&format=' + format);
                 xhr.send();
             }
         }
