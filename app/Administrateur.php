@@ -85,6 +85,7 @@ class Administrateur extends Authenticatable implements JWTSubject
                     $adminSpec->administrateur_id = $administrateur->id;
                     $adminSpec->no_compte_bancaire =$data['no_compte_bancaire'];
                     $adminSpec->site_web_id = $site_web->id;
+                    $adminSpec->token_site = Str::uuid();
                     $adminSpec->save();
                     
                     // $adminSpec = AdministrateurSite::create([
