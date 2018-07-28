@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CampagnePublicitaire extends Model
 {
-	
+
     /**
      * The table associated with the model.
      *
@@ -48,7 +48,7 @@ class CampagnePublicitaire extends Model
     public static function campagnesAdministrateurConnecte()
     {
         return CampagnePublicitaire::with('bannieres')->where(
-                'administrateur_publicite_id', 
+                'administrateur_publicite_id',
                 auth()->user()->getSpecificAdminId()
             )
             ->get();
@@ -104,5 +104,20 @@ class CampagnePublicitaire extends Model
         }
         return false;
     }
+
+        /* update campagne publicitaire */
+
+    public static function UpdateCampagneAdministrateurConnecte($id) {
+            $campagne = CampagnePublicitaire::where(
+                    'administrateur_publicite_id', auth()->user()->getSpecificAdminId()
+                )
+                ->where('id', $id)
+                ->first();
+            if($campagne) {
+                $campagne->update('id', $id);
+                return true;
+            }
+            return false;
+        }
 
 }

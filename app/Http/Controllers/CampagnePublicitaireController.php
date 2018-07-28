@@ -38,7 +38,7 @@ class CampagnePublicitaireController extends Controller
                 'campagne_pub' => $campagnePub
             ], 201);
         }
-        
+
         return response()->json([
                 'message' => 'Error',
             ], 500);
@@ -62,9 +62,48 @@ class CampagnePublicitaireController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
+    /* edition de la campagne de de publicite avant la  mis a jour
+
+     public function edit( $id)
+         {
+
+             // TODO
+                     $request->validate([]);
+
+                     $campagnePub = CampagnePublicitaire::editCampagne($request->all());
+
+                         $post = Post::where('id', $id)->firstOrFail();
+                         return  view ('post-edit', compact('post'));
+
+                         }
+
+                     }
+
     public function update(Request $request, $id)
     {
-        //
+
+        // TODO
+                $request->validate([]);
+
+                $campagnePub = CampagnePublicitaire::updateCampagne($request->all());
+
+                return $request->input();
+                return response()->json([
+                    'message' => 'Success'
+                ], 200);
+
+                post = Post::where('id', $id)->firstOrFail(); /* trouve l'entrée en DB */
+                $post->update($request->intersect([
+                'administrateur_publicite_id' => auth()->user()->getSpecificAdminId(),
+                'nom' => $data['nom'],
+                'budget' => $data['budget'],
+                'date_debut' => $data['date_debut'],
+                'date_fin' => $data['date_fin'],
+                'active' => $data['active'])); /*récupère les valeurs suivantes */
+                return redirect()->back();
+
     }
 
     /**
@@ -83,6 +122,6 @@ class CampagnePublicitaireController extends Controller
         return response()->json([
                 'message' => 'Not found.',
             ], 404);
-        
+
     }
 }

@@ -22,7 +22,8 @@ Route::group([
     Route::get('campagnes-publicitaires', 'CampagnePublicitaireController@index');
     Route::post('campagnes-publicitaires', 'CampagnePublicitaireController@store');
     Route::delete('campagnes-publicitaires/{id}', 'CampagnePublicitaireController@destroy');
-    Route::patch('profils/{id}', 'ProfilController@update');
+    Route::get('campagnes-publicitaires/{id}/edit', 'CampagnePublicitaireController@edit');
+    Route::post('campagnes-publicitaires/{id}/update', 'CampagnePublicitaireController@update');
     Route::delete('profils/{id}', 'ProfilController@destroy');
 });
 
