@@ -26,15 +26,11 @@ class Redevance extends Model
 
     public static function getVue(){
 
-        $nombreVue = DB::table('redevances')
-                        ->join('utilisateurs', 'redevances.utilisateur_id', '=', 'utilisateurs.id')
-                        ->join('pages_web', 'utilisateurs.id', '=', 'pages_web.utilisateur_id')
+        $nombreVue = DB::table('pages_web')
                         ->join('sites_web', 'pages_web.site_web_id', '=', 'sites_web.id')
-                        ->join('administrateurs_site', 'sites_web.id', '=', 'administrateurs_site.site_web_id')
-                        ->where('administrateurs_site.administrateur_id', auth()->user()->id )
-                        ->get();
-
-        $nombreVue = count($nombreVue);
+                        ->join('administrateurs_site', 'administrateurs_site.site_web_id', '=', 'sites_web.id')
+                        ->where('administrateurs_site.id', auth()->user()->getSpecificAdminId() )
+                        ->count();
 
         return $nombreVue;
     }
