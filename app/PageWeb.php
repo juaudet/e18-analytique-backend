@@ -64,6 +64,7 @@ class PageWeb extends Model
                     'utilisateurs.token as utilisateur_token'
                 )
                 ->orderBy('pages_web.date_visite', 'desc')
+                ->limit(50)
                 ->get();
         $historique->each(function ($pageWeb) {
             $pageWeb->utilisateur = array(
