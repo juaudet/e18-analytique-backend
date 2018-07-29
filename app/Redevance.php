@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Redevance extends Model
 {
@@ -64,15 +65,15 @@ class Redevance extends Model
     //     return $this->hasMany('App\Redevance');
     // }
 
-    // protected $fillable = [
-    //     'token',
-    //     'cliquee',
-    //     'cible',
-    //     'montant',
-    //     'paiement_redevance_id',
-    //     'utilisateur_id',
-    //     'date',
-    // ];
+    protected $fillable = [
+        'token',
+        'cliquee',
+        'cible',
+        'montant',
+        'paiement_redevance_id',
+        'utilisateur_id',
+        'date',
+    ];
 
     // //Do I need to add utilisateur_id ?
     // protected $hidden = ['paiement_redevance_id', 'utilisateur_id'];
@@ -86,23 +87,25 @@ class Redevance extends Model
     //         ->get();
     // }
 
-    // public static function creerRedevance($data) {
-    //     return DB::transaction(function () use ($data) {
-    //         try {
+    public static function creerRedevance($administrateurSite) {
+        return DB::transaction(function () use ($administrateurSite) {
+            try {
 
-    //             $redevance = Redevance::create([
-    //                 'token' => $data['token'],
-    //                 'cliquee' => $data['cliquee'],
-    //                 'cible' => $data['cible'],
-    //                 'montant' => $data['montant'],
-    //                 'utilisateur_id' => $data['utilisateur_id'],
-    //             ]);
+                $redevance = Redevance::create([
+                    'token' => Str::uuid(),
+                    'cliquee' => false,
+                    'cible' => false,
+                    'montant' => 0.01,
+                    'site_web_id' => $administrateurSite['site_web_id'],
+                    'paiement_redevance_id' => null,
+                    'date' => now()->toDateTimeString()
+                ]);
 
-    //             return $redevance;
-    //         }
-    //         catch (\Illuminate\Database\QueryException $exception) {
-    //             return false;
-    //         }
-    //     });
-    // }
+                return $redevance;
+            }
+            catch (\Illuminate\Database\QueryException $exception) {
+                return false;
+            }
+        });
+    }
 }
