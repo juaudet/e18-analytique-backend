@@ -24,7 +24,7 @@ class Banniere extends Model
             $utilisateur = Utilisateur::getUtilisateur($data['token']);
             
             // récupère l'historique d'un utilisateur et ainsi obtenir ses sitewebprofilcible visité
-            $historique = PageWeb::historiqueSitesWebUtilisateur($utilisateur);
+            $profilCible = SiteWebProfilCible::getProfilCibleFromHistorique($utilisateur);
             
         }
 
