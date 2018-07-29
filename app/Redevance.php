@@ -68,7 +68,7 @@ class Redevance extends Model
     protected $fillable = [
         'token',
         'cliquee',
-        'cible',
+        'ciblee',
         'montant',
         'paiement_redevance_id',
         'administrateur_site_id',
@@ -94,7 +94,7 @@ class Redevance extends Model
                 $redevance = Redevance::create([
                     'token' => Str::uuid(),
                     'cliquee' => false,
-                    'cible' => false,
+                    'ciblee' => false,
                     'montant' => 0.01,
                     'administrateur_site_id' => $administrateurSite['id'],
                     'paiement_redevance_id' => null,
