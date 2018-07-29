@@ -38,22 +38,7 @@ class Redevance extends Model
 
     public static function getProfitTotal(){
 
-        
-        $profitTmp = Redevance::selectRaw('sum(montant) as total')
-                            ->join('utilisateurs', 'redevances.utilisateur_id', '=', 'utilisateurs.id')
-                            ->join('pages_web', 'utilisateurs.id', '=', 'pages_web.utilisateur_id')
-                            ->join('sites_web', 'pages_web.site_web_id', '=', 'sites_web.id')
-                            ->join('administrateurs_site', 'sites_web.id', '=', 'administrateurs_site.site_web_id')
-                            ->where('administrateurs_site.administrateur_id', auth()->user()->id )
-                            ->get();
-                            
-        if($profitTmp[0]->total == null){
-
-            $profitTotaux = 0;
-        }else{
-
-            $profitTotaux = $profitTmp[0]->total;
-        }
+        $profitTotaux = Redevance::where('administrateur_site_id', auth()->user()->getSpecificAdminId() )->sum('montant');
 
         return $profitTotaux;
     }
