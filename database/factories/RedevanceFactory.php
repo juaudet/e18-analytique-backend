@@ -22,5 +22,6 @@ $factory->define(App\Redevance::class, function (Faker $faker) {
         'ciblee' => $statut['ciblee'],
         'date' => $faker->dateTimeThisYear,
         'montant' => $montant,
+        'administrateur_site_id' => App\AdministrateurSite::inRandomOrder()->first()
     ];
 });

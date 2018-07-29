@@ -71,7 +71,7 @@ class Redevance extends Model
         'cible',
         'montant',
         'paiement_redevance_id',
-        'utilisateur_id',
+        'administrateur_site_id',
         'date',
     ];
 
@@ -96,7 +96,7 @@ class Redevance extends Model
                     'cliquee' => false,
                     'cible' => false,
                     'montant' => 0.01,
-                    'site_web_id' => $administrateurSite['site_web_id'],
+                    'administrateur_site_id' => $administrateurSite['id'],
                     'paiement_redevance_id' => null,
                     'date' => now()->toDateTimeString()
                 ]);
