@@ -74,6 +74,22 @@ class PageWeb extends Model
         return $historique;
     }
 
+    public static function historiqueSitesWebUtilisateur($utilisateur) {
+        $historique = DB::table('pages_web') //PageWeb
+                ->join('sites_web', 'sites_web.id', '=', 'pages_web.site_web_id')
+                ->join('utilisateurs', 'utilisateurs.id', '=', 'pages_web.utilisateur_id')
+                ->where(
+                    'utilisateurs.token', $utilisateur->token
+                )
+                ->select(
+                    'sites_web.*'
+                )
+                ->orderBy('pages_web.date_visite', 'desc')
+                ->limit(5)
+                ->get();
+        return $historique;
+    }
+
     public static function getVueByPage($url){
 
         $nombreVue = PageWeb::where('url','=',$url)->count();

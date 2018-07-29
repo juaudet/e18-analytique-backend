@@ -23,7 +23,10 @@ class BanniereController extends Controller
 		
 		$administrateurSite = AdministrateurSite::where('token_site', $request->token)->first();
 
-		$banniere = Banniere::getBanniereAlgorithme($request->all());
+		$banniere = Banniere::getBanniereAlgorithme([
+			'format' => $request->input('format'),
+			'token' => $request->cookie('token'),
+		]);
 		Redevance::creerRedevance($administrateurSite);
 		
     	if($request->input('struct') == 'json') {
