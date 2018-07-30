@@ -38,7 +38,12 @@ class Banniere extends Model
             'ciblee' => $ciblee
         ]);
 
-        $banniere = Banniere::where('format', $data['format'])->inRandomOrder()->first();
+        $banniereQuery = Banniere::where('format', $data['format']);
+        if($ciblee) {
+            $banniereQuery->where('campagne_publicitaire_id', $campagneCibleeId);
+        }
+
+        $banniere = $banniereQuery->inRandomOrder()->first();
 
         return $banniere;
     }
