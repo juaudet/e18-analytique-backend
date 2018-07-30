@@ -28,16 +28,24 @@ class SiteWebProfilCible extends Model
 
     protected $hidden = ['profil_cible_id'];
 
-    public static function getProfilCibleFromHistorique($utilisateur) {
-        $siteWebProfilCible = DB::table('utilisateurs as u')
+    public static function getCampagneCibleeId($utilisateur) {
+        $campagnesCiblees = DB::table('utilisateurs as u')
                     ->join('pages_web as pw', 'pw.utilisateur_id', 'u.id')
                     ->join('sites_web_profil_cible as sw', 'pw.url', 'like', DB::raw('CONCAT(\'%\', sw.url, \'%\')'))
                     ->join('profils_cible as pc', 'pc.id', 'sw.profil_cible_id')
+                    ->join('campagnes_profils as cp', 'cp.profil_cible_id', 'pc.id')
                     ->where('u.id', $utilisateur->id)
-                    ->select('pc.*')
-                    ->inRandomOrder()->first();
+                    ->select('cp.id')
+                    ->distinct()
+                    ->get();
+        if(count($campagnesCiblees) > 0) {
+            $campagneCibleeId = $campagnesCiblees[random_int(0, count($campagnesCiblees) - 1)]->id;
+        }
+        else {
+            $campagneCibleeId = 0;
+        }
 
-        return $siteWebProfilCible;
+        return $campagneCibleeId;
     }
 
 }

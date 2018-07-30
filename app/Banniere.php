@@ -23,11 +23,11 @@ class Banniere extends Model
         if($data['token']){
 
             $utilisateur = Utilisateur::getUtilisateur($data['token']);
-            
+
             if($utilisateur) {
                 // récupère l'historique d'un utilisateur et ainsi obtenir ses sitewebprofilcible visité
-                $profilCible = SiteWebProfilCible::getProfilCibleFromHistorique($utilisateur);
-                if(!is_null($profilCible)) {
+                $campagneCibleeId = SiteWebProfilCible::getCampagneCibleeId($utilisateur);
+                if($campagneCibleeId > 0) {
                     $ciblee = true;
                 }
             }
