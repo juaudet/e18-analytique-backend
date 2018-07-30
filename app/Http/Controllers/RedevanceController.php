@@ -43,6 +43,22 @@ class RedevanceController extends Controller
             ], 500);
     }
 
+    public function payRedevance(){
+
+        $paiementRedevance = Redevance::payRedevance();
+
+        if($paiementRedevance) {
+            return response()->json([
+                'message' => 'Success',
+                'paiementRedevance' => $paiementRedevance
+            ], 201);
+        }
+        
+        return response()->json([
+                'message' => 'Error',
+            ], 500);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

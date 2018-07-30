@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use App\PaiementRedevance;
+
 class Redevance extends Model
 {
 
@@ -101,5 +103,46 @@ class Redevance extends Model
                                         ->sum('montant');
 
         return $redevanceToPay;
+    }
+
+    public static function payRedevance(){
+
+        return DB::transaction(function () {
+            try {
+
+                $montant = Redevance::where('administrateur_site_id', auth()->user()->getSpecificAdminId() )
+                ->where('paiement_redevance_id', null)
+                ->sum('montant');
+        
+                $redevances = Redevance::where('administrateur_site_id', auth()->user()->getSpecificAdminId() )
+                ->where('paiement_redevance_id', null)->get();
+                
+                if($montant != 0){
+                    $paiementRedevance = PaiementRedevance::create([
+                            'no_transaction' => Str::uuid(),   
+                            'montant' => $montant,               
+                            'date' => now()->toDateTimeString(),
+                            'administrateur_site_id' => auth()->user()->getSpecificAdminId()
+                    ]);
+
+                        $paiementRedevance->redevances()->saveMany($redevances);
+                        $paiementRedevance->load('redevances');
+                        
+               }else{
+
+                return false;
+               }
+              
+                
+
+                return $paiementRedevance;
+            }
+            catch (\Illuminate\Database\QueryException $exception) {
+                return false;
+            }
+        });
+        
+
+
     }
 }

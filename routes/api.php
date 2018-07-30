@@ -55,7 +55,10 @@ Route::group([
     Route::get('me', 'AuthController@me');
 });
 
+// get redevance to pay and pay redevance
 Route::get('redevances', "RedevanceController@getRedevanceToPay");
+Route::patch('redevances', "RedevanceController@payRedevance");
+
 
 Route::get('banniere', 'BanniereController@getBanniere');
 
