@@ -33,7 +33,10 @@ class Banniere extends Model
             }
         }
 
-        Redevance::creerRedevance($data['admin']);
+        Redevance::creerRedevance([
+            'admin_id' => $data['admin']['id'], 
+            'ciblee' => $ciblee
+        ]);
 
         $banniere = Banniere::where('format', $data['format'])->inRandomOrder()->first();
 
