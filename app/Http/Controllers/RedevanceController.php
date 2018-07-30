@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Redevance;
 
 class RedevanceController extends Controller
 {
@@ -24,6 +25,22 @@ class RedevanceController extends Controller
     public function create()
     {
         //
+    }
+
+    public function getRedevanceToPay(){
+
+        $redevance_to_pay = Redevance::getRedevanceToPay();
+
+        if($redevance_to_pay) {
+            return response()->json([
+                'message' => 'Success',
+                'redevance_to_pay' => $redevance_to_pay
+            ], 201);
+        }
+        
+        return response()->json([
+                'message' => 'Error',
+            ], 500);
     }
 
     /**

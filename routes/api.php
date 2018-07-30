@@ -55,7 +55,7 @@ Route::group([
     Route::get('me', 'AuthController@me');
 });
 
-Route::get('redevances', "RedevanceController@getRedevance");
+Route::get('redevances', "RedevanceController@getRedevanceToPay");
 
 Route::get('banniere', 'BanniereController@getBanniere');
 

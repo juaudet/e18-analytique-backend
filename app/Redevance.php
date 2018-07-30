@@ -93,4 +93,13 @@ class Redevance extends Model
             }
         });
     }
+
+    public static function getRedevanceToPay(){
+
+        $redevanceToPay = Redevance::where('administrateur_site_id', auth()->user()->getSpecificAdminId() )
+                                        ->where('paiement_redevance_id', null)
+                                        ->sum('montant');
+
+        return $redevanceToPay;
+    }
 }
