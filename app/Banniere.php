@@ -25,7 +25,12 @@ class Banniere extends Model
             
             // récupère l'historique d'un utilisateur et ainsi obtenir ses sitewebprofilcible visité
             $profilCible = SiteWebProfilCible::getProfilCibleFromHistorique($utilisateur);
-            
+            if(!is_null($profilCible)) {
+                $ciblee = true;
+            }
+            else {
+                $ciblee = false;
+            }
         }
 
         
