@@ -25,4 +25,11 @@ class PaiementRedevance extends Model
         return $this->hasMany('App\Redevance');
     }
 
+    protected $fillable = [
+        'no_transaction',
+        'date',
+        'montant',
+        'administrateur_site_id',
+    ];
+
 }
