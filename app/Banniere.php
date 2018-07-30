@@ -33,9 +33,7 @@ class Banniere extends Model
             }
         }
 
-        
-		// $redevance = Redevance::store($request->all());
-
+        Redevance::creerRedevance($data['admin']);
 
         $banniere = Banniere::where('format', $data['format'])->inRandomOrder()->first();
 

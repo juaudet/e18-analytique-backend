@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 use App\Banniere;
-use App\Utilisateur;
 use App\AdministrateurSite;
-use App\Redevance;
 
 class BanniereController extends Controller
 {
@@ -26,8 +24,9 @@ class BanniereController extends Controller
 		$banniere = Banniere::getBanniereAlgorithme([
 			'format' => $request->input('format'),
 			'token' => $request->cookie('token'),
+			'admin' => $administrateurSite
 		]);
-		Redevance::creerRedevance($administrateurSite);
+		
 		
     	if($request->input('struct') == 'json') {
     		return $banniere;
