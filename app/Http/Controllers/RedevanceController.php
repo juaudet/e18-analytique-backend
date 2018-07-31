@@ -43,8 +43,13 @@ class RedevanceController extends Controller
             ], 500);
     }
 
-    public function payRedevance(){
+    public function payRedevance(Request $request){
 
+        $request->validate([
+            'no_compte_bancaire' => 'required|max:255',
+        ]);
+
+        //Todo inclure le réel transfert bancaire
         $paiementRedevance = Redevance::payRedevance();
 
         if($paiementRedevance) {
