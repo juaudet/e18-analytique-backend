@@ -14,9 +14,7 @@ class Utilisateur extends Model
 
 
     public static function getUtilisateur($token) {
-
-        $utilisateur = Utilisateur::where('token', $token)->inRandomOrder()->first();
-
+        $utilisateur = Utilisateur::where('token', $token)->first();
         return $utilisateur;
     }
 
