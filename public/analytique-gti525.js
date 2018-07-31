@@ -15,6 +15,7 @@
                     }
                 }
                 xhr.open('GET', domain + '/api/banniere?token=' + token + '&format=' + format);
+                xhr.withCredentials = true;
                 xhr.send();
             }
         }

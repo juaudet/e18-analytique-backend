@@ -74,16 +74,16 @@ class Redevance extends Model
     //         ->get();
     // }
 
-    public static function creerRedevance($administrateurSite) {
-        return DB::transaction(function () use ($administrateurSite) {
+    public static function creerRedevance($data) {
+        return DB::transaction(function () use ($data) {
             try {
 
                 $redevance = Redevance::create([
                     'token' => Str::uuid(),
                     'cliquee' => false,
-                    'ciblee' => false,
-                    'montant' => 0.01,
-                    'administrateur_site_id' => $administrateurSite['id'],
+                    'ciblee' => $data['ciblee'],
+                    'montant' => $data['ciblee'] ? 0.03 : 0.01,
+                    'administrateur_site_id' => $data['admin_id'],
                     'paiement_redevance_id' => null,
                     'date' => now()->toDateTimeString()
                 ]);
@@ -144,5 +144,15 @@ class Redevance extends Model
         
 
 
+    }
+
+    public static function getRedevanceByToken($data) {
+        return Redevance::where('token', $data['token'])->first();
+    }
+
+    public function setClique() {
+        $this->cliquee = true;
+        $this->montant = $this->ciblee ? 0.10 : 0.05;
+        $this->save();
     }
 }

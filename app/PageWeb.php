@@ -82,7 +82,7 @@ class PageWeb extends Model
                     'utilisateurs.token', $utilisateur->token
                 )
                 ->select(
-                    'sites_web.*'
+                    'pages_web.url'
                 )
                 ->orderBy('pages_web.date_visite', 'desc')
                 ->limit(5)
