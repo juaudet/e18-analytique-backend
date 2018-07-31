@@ -145,4 +145,14 @@ class Redevance extends Model
 
 
     }
+
+    public static function getRedevanceByToken($data) {
+        return Redevance::where('token', $data['token'])->first();
+    }
+
+    public function setClique() {
+        $this->cliquee = true;
+        $this->montant = $this->ciblee ? 0.10 : 0.05;
+        $this->save();
+    }
 }

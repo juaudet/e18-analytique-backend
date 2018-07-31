@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 
 use App\Banniere;
 use App\AdministrateurSite;
+use App\Redevance;
 
 class BanniereController extends Controller
 {
@@ -33,6 +34,26 @@ class BanniereController extends Controller
 		}
 		
 		return view('banniere', ['banniere' => $banniere]);
+	}
+
+	public function banniereCliquee(Request $request) {
+
+		$request->validate([
+    		'token_redevance' => 'required',
+    		'redirect_url' => 'required',
+		]);
+
+		$redevance = Redevance::getRedevanceByToken([
+			'token' => $request->input('token_redevance'),
+		]);
+
+		if(is_null($redevance)) {
+			return response()->json('Not Found.', 404);
+		}
+
+		$redevance->setClique();
+
+		return redirect()->away($request->input('redirect_url'));
 	}
 
 	
