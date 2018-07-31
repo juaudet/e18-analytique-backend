@@ -33,7 +33,7 @@ class Banniere extends Model
             }
         }
 
-        Redevance::creerRedevance([
+        $redevance = Redevance::creerRedevance([
             'admin_id' => $data['admin']['id'], 
             'ciblee' => $ciblee
         ]);
@@ -44,6 +44,8 @@ class Banniere extends Model
         }
 
         $banniere = $banniereQuery->inRandomOrder()->first();
+
+        $banniere->url = url('/') . "/banniere/clique?redirect_url={$banniere->url}&token_redevance={$redevance->token}";
 
         return $banniere;
     }
