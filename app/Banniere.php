@@ -45,6 +45,10 @@ class Banniere extends Model
 
         $banniere = $banniereQuery->inRandomOrder()->first();
 
+        if(!$banniere) {
+            $banniere = Banniere::where('format', $data['format']);
+        }
+        
         $banniere->url = url('/') . "/banniere/clique?redirect_url={$banniere->url}&token_redevance={$redevance->token}";
 
         return $banniere;
