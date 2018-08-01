@@ -32,8 +32,8 @@ class RedevanceController extends Controller
     public function getRedevanceToPay(){
 
         $redevance_to_pay = Redevance::getRedevanceToPay();
-
-        if($redevance_to_pay) {
+      
+        if($redevance_to_pay == 0 || $redevance_to_pay != null) {
             return response()->json([
                 'message' => 'Success',
                 'redevance_to_pay' => $redevance_to_pay
@@ -51,10 +51,8 @@ class RedevanceController extends Controller
             'no_compte_bancaire' => 'required|max:255',
         ]);
 
-      
         $response = $this->doTransferWithBankApi($request);
-        
-
+       
         if($response->getStatusCode() == '201'){
             $paiementRedevance = Redevance::payRedevance();
             
@@ -94,15 +92,17 @@ class RedevanceController extends Controller
         $montant = Redevance::where('administrateur_site_id', auth()->user()->getSpecificAdminId() )
                 ->where('paiement_redevance_id', null)
                 ->sum('montant');
+       
+            $response = $banque_client->request('POST', 'virement', [
+                'form_params' => [
+                    'cpt_prov' => 'NRB00005',
+                    'cpt_dest' => $request['no_compte_bancaire'],
+                    'montant' => $montant,
+                    'cle_api' => '12345',
+                ], 'http_errors' => false
+            ]);
 
-        return $banque_client->request('POST', 'virement', [
-            'form_params' => [
-                'cpt_prov' => 'NRB00005',
-                'cpt_dest' => $request['no_compte_bancaire'],
-                'montant' => $montant,
-                'cle_api' => '12345',
-            ]
-        ]);
+        return $response;
 
     }
 

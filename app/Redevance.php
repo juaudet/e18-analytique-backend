@@ -102,6 +102,7 @@ class Redevance extends Model
                                         ->where('paiement_redevance_id', null)
                                         ->sum('montant');
 
+        
         return $redevanceToPay;
     }
 
