@@ -44,7 +44,7 @@ class Banniere extends Model
             $banniere = $banniereQueryCiblee->inRandomOrder()->first();
         }
 
-        if(!defined($banniere) || !$banniere) {
+        if(!defined($banniere)) {
             $banniere = $banniereQuery->inRandomOrder()->first();
         }
 
