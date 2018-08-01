@@ -40,10 +40,13 @@ class Banniere extends Model
 
         $banniereQuery = Banniere::where('format', $data['format']);
         if($ciblee) {
-            $banniereQuery->where('campagne_publicitaire_id', $campagneCibleeId);
+            $banniereQueryCiblee = $banniereQuery->where('campagne_publicitaire_id', $campagneCibleeId);
+            $banniere = $banniereQueryCiblee->inRandomOrder()->first();
         }
 
-        $banniere = $banniereQuery->inRandomOrder()->first();
+        if(!defined($banniere)) {
+            $banniere = $banniereQuery->inRandomOrder()->first();
+        }
 
         $banniere->url = url('/') . "/banniere/clique?redirect_url={$banniere->url}&token_redevance={$redevance->token}";
 
