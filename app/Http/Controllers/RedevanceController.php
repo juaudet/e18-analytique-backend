@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Redevance;
+use GuzzleHttp\Client;
+
 
 class RedevanceController extends Controller
 {
@@ -30,8 +32,8 @@ class RedevanceController extends Controller
     public function getRedevanceToPay(){
 
         $redevance_to_pay = Redevance::getRedevanceToPay();
-
-        if($redevance_to_pay) {
+      
+        if($redevance_to_pay == 0 || $redevance_to_pay != null) {
             return response()->json([
                 'message' => 'Success',
                 'redevance_to_pay' => $redevance_to_pay
@@ -43,20 +45,65 @@ class RedevanceController extends Controller
             ], 500);
     }
 
-    public function payRedevance(){
+    public function payRedevance(Request $request){
 
-        $paiementRedevance = Redevance::payRedevance();
+        $request->validate([
+            'no_compte_bancaire' => 'required|max:255',
+        ]);
 
-        if($paiementRedevance) {
+        $response = $this->doTransferWithBankApi($request);
+       
+        if($response->getStatusCode() == '201'){
+            $paiementRedevance = Redevance::payRedevance();
+            
+
+            if($paiementRedevance) {
+                
+                return response()->json([
+                    'message' => 'Success',
+                    'paiementRedevance' => $paiementRedevance
+                ], 201);
+            }else{
+
+                return response()->json([
+                    'message' => 'Error',
+                ], 500);
+            }
+        }else{
+
             return response()->json([
-                'message' => 'Success',
-                'paiementRedevance' => $paiementRedevance
-            ], 201);
+                'message' => 'Bad Request',
+            ], 400);
         }
         
-        return response()->json([
-                'message' => 'Error',
-            ], 500);
+    }
+
+    private function doTransferWithBankApi(Request $request){
+
+        
+        $banque_client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => 'https://api-nrbanque.herokuapp.com/api/transfert/',
+            // You can set any number of default request options.
+            'timeout'  => 2.0,
+        ]);
+
+        
+        $montant = Redevance::where('administrateur_site_id', auth()->user()->getSpecificAdminId() )
+                ->where('paiement_redevance_id', null)
+                ->sum('montant');
+       
+            $response = $banque_client->request('POST', 'virement', [
+                'form_params' => [
+                    'cpt_prov' => 'NRB00005',
+                    'cpt_dest' => $request['no_compte_bancaire'],
+                    'montant' => $montant,
+                    'cle_api' => '12345',
+                ], 'http_errors' => false
+            ]);
+
+        return $response;
+
     }
 
     /**
